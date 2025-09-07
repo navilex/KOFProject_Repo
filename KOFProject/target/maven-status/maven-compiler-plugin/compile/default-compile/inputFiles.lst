@@ -1,3 +1,6 @@
-D:\Documentos\NetBeansProjects\KOFProject\src\main\java\com\mycompany\kofproject\conexion\Conexion.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\com\mycompany\kofproject\KOFProject.java
-D:\Documentos\NetBeansProjects\KOFProject\src\main\java\com\mycompany\kofproject\vistas\Login.java
+D:\Documentos\NetBeansProjects\KOFProject\src\main\java\conexion\Conexion.java
+D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\SecretarioControlador.java
+D:\Documentos\NetBeansProjects\KOFProject\src\main\java\modelos\Secretario.java
+D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormLogin.java
+D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormSecretarios.java

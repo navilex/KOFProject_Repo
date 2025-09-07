@@ -4,7 +4,7 @@
 
 package com.mycompany.kofproject;
 
-import com.mycompany.kofproject.vistas.Login;
+import vistas.FormLogin;
 
 /**
  *
@@ -14,7 +14,7 @@ public class KOFProject {
 
     public static void main(String[] args) 
     {
-        Login ObjLogin = new Login();
+        FormLogin ObjLogin = new FormLogin();
         ObjLogin.setVisible(true);
     }
 }
