@@ -182,8 +182,11 @@ public class FormLogin extends javax.swing.JFrame {
         if (conexionGlobal.ValidarConexion())
         {
             //JOptionPane.showMessageDialog(null, "Conexión exitosa");
-            FormSecretarios ObjFormSecretarios = new FormSecretarios();
-            ObjFormSecretarios.setVisible(true);
+            //FormSecretarios ObjFormSecretarios = new FormSecretarios();
+            //ObjFormSecretarios.setVisible(true);
+            
+            FormAlumnos ObjAlumnos = new FormAlumnos();
+            ObjAlumnos.setVisible(true);
         }
     }//GEN-LAST:event_Ingresar_btActionPerformed
 
