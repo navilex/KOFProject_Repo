@@ -70,6 +70,8 @@ public class FormAlumnos extends javax.swing.JFrame {
         TelefonoP_tb = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         Grupo_tb = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        Grado_tb = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,7 +147,10 @@ public class FormAlumnos extends javax.swing.JFrame {
         jLabel10.setText("Teléfono del padre");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel11.setText("Grupo");
+        jLabel11.setText("Grado");
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setText("Grupo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -153,43 +158,52 @@ public class FormAlumnos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Insertar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Modificar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Eliminar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Volver_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CorreoP_tb)
-                            .addComponent(ApellidoP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(Genero_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(Apellido_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(Edad_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(ID_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(Nombre_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(Domicilio_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(NombreP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Grupo_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                            .addComponent(TelefonoP_tb))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1079, Short.MAX_VALUE)
+                            .addComponent(Modificar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Eliminar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Volver_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel9))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(CorreoP_tb)
+                                            .addComponent(ApellidoP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(Genero_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(Apellido_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(Edad_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(ID_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(Nombre_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(Domicilio_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                            .addComponent(NombreP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jLabel12)
+                                            .addComponent(jLabel11))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(Grado_tb)
+                                            .addComponent(Grupo_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                            .addComponent(TelefonoP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Insertar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -239,17 +253,22 @@ public class FormAlumnos extends javax.swing.JFrame {
                             .addComponent(TelefonoP_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
                             .addComponent(Grupo_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(Grado_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addComponent(Insertar_bt)
                         .addGap(18, 18, 18)
                         .addComponent(Modificar_bt)
                         .addGap(18, 18, 18)
                         .addComponent(Eliminar_bt)
                         .addGap(18, 18, 18)
-                        .addComponent(Volver_bt))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE))
+                        .addComponent(Volver_bt)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 
@@ -275,18 +294,18 @@ public class FormAlumnos extends javax.swing.JFrame {
 
     private void Alumnos_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Alumnos_tablaMouseClicked
         AlumnoControlador ObjAlumnoControlador = new AlumnoControlador();
-        ObjAlumnoControlador.SeleccionarAlumno(ID_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, Domicilio_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb, Alumnos_tabla);
+        ObjAlumnoControlador.SeleccionarAlumno(ID_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, Domicilio_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb, Grado_tb, Alumnos_tabla);
     }//GEN-LAST:event_Alumnos_tablaMouseClicked
 
     private void Insertar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Insertar_btActionPerformed
         AlumnoControlador ObjAlumnoControlador = new AlumnoControlador();
-        ObjAlumnoControlador.InsertarAlumno(FormLogin.conexionGlobal.IniciarConexion(), Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, Domicilio_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb);
+        ObjAlumnoControlador.InsertarAlumno(FormLogin.conexionGlobal.IniciarConexion(), Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, Domicilio_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb, Grado_tb);
         ObjAlumnoControlador.MostrarAlumno(FormLogin.conexionGlobal.IniciarConexion(), Alumnos_tabla);
     }//GEN-LAST:event_Insertar_btActionPerformed
 
     private void Modificar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Modificar_btActionPerformed
         AlumnoControlador ObjAlumnoControlador = new AlumnoControlador();
-        ObjAlumnoControlador.ModificarAlumno(FormLogin.conexionGlobal.IniciarConexion(), ID_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, Domicilio_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb);
+        ObjAlumnoControlador.ModificarAlumno(FormLogin.conexionGlobal.IniciarConexion(), ID_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, Domicilio_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb, Grado_tb);
         ObjAlumnoControlador.MostrarAlumno(FormLogin.conexionGlobal.IniciarConexion(), Alumnos_tabla);
     }//GEN-LAST:event_Modificar_btActionPerformed
 
@@ -330,6 +349,7 @@ public class FormAlumnos extends javax.swing.JFrame {
     private javax.swing.JTextField Edad_tb;
     private javax.swing.JButton Eliminar_bt;
     private javax.swing.JTextField Genero_tb;
+    private javax.swing.JTextField Grado_tb;
     private javax.swing.JTextField Grupo_tb;
     private javax.swing.JTextField ID_tb;
     private javax.swing.JButton Insertar_bt;
@@ -341,6 +361,7 @@ public class FormAlumnos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

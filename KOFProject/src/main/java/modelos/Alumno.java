@@ -21,6 +21,17 @@ public class Alumno
     String correo_padre;
     String telefono_padre;
     String grupo;
+    int grado;
+
+    public int getGrado() 
+    {
+        return grado;
+    }
+
+    public void setGrado(int grado) 
+    {
+        this.grado = grado;
+    }
 
     public int getId() 
     {
