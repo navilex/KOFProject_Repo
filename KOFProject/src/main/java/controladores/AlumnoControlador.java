@@ -34,21 +34,20 @@ public class AlumnoControlador
         String SQL = "SELECT * FROM alumnos;";
         
         MiModeloTabla.addColumn("ID");
+        MiModeloTabla.addColumn("CURP");
         MiModeloTabla.addColumn("Nombre");
         MiModeloTabla.addColumn("Apellido");
         MiModeloTabla.addColumn("Edad");
         MiModeloTabla.addColumn("Genero");
-        MiModeloTabla.addColumn("Domicilio");
         MiModeloTabla.addColumn("Nombre Padre");
         MiModeloTabla.addColumn("Apellido Padre");
         MiModeloTabla.addColumn("Correo Padre");
         MiModeloTabla.addColumn("Telefono Padre");
-        MiModeloTabla.addColumn("Grupo");
-        MiModeloTabla.addColumn("Grado");
+        MiModeloTabla.addColumn("ID Grupo");
         
         Alumnos_tabla.setModel(MiModeloTabla);
         
-        String[] datos = new String[12];
+        String[] datos = new String[11];
         Statement st;
         
         try
@@ -69,7 +68,6 @@ public class AlumnoControlador
                 datos[8]=rs.getString(9);
                 datos[9]=rs.getString(10);
                 datos[10]=rs.getString(11);
-                datos[11]=rs.getString(12);
                 
                 MiModeloTabla.addRow(datos);
             }
@@ -82,7 +80,7 @@ public class AlumnoControlador
         }
     }
     
-    public void SeleccionarAlumno(JTextField paramID, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramDomicilio, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo, JTextField paramGrado, JTable paramTabla)
+    public void SeleccionarAlumno(JTextField paramID, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo, JTable paramTabla)
     {
         try
         {
@@ -91,17 +89,16 @@ public class AlumnoControlador
             if (fila >= 0)
             {
                 paramID.setText(paramTabla.getValueAt(fila, 0).toString());
-                paramNombre.setText(paramTabla.getValueAt(fila, 1).toString());
-                paramApellido.setText(paramTabla.getValueAt(fila, 2).toString());
-                paramEdad.setText(paramTabla.getValueAt(fila, 3).toString());
-                paramGenero.setText(paramTabla.getValueAt(fila, 4).toString());
-                paramDomicilio.setText(paramTabla.getValueAt(fila, 5).toString());
+                paramCURP.setText(paramTabla.getValueAt(fila, 1).toString());
+                paramNombre.setText(paramTabla.getValueAt(fila, 2).toString());
+                paramApellido.setText(paramTabla.getValueAt(fila, 3).toString());
+                paramEdad.setText(paramTabla.getValueAt(fila, 4).toString());
+                paramGenero.setText(paramTabla.getValueAt(fila, 5).toString());
                 paramNombreP.setText(paramTabla.getValueAt(fila, 6).toString());
                 paramApellidoP.setText(paramTabla.getValueAt(fila, 7).toString());
                 paramCorreoP.setText(paramTabla.getValueAt(fila, 8).toString());
                 paramTelefonoP.setText(paramTabla.getValueAt(fila, 9).toString());
                 paramGrupo.setText(paramTabla.getValueAt(fila, 10).toString());
-                paramGrado.setText(paramTabla.getValueAt(fila, 11).toString());
             }
             else
             {
@@ -114,19 +111,19 @@ public class AlumnoControlador
         }
     }
     
-    public boolean ValidarDatos(Connection conexionExistente, JTextField paramEdad, JTextField paramGrado, JTextField paramCorreoP, JTextField paramTelefonoP)
+    public boolean ValidarDatos(Connection conexionExistente, JTextField paramEdad, int idGrupo, JTextField paramCorreoP, JTextField paramTelefonoP)
     {
         int edad = Integer.parseInt(paramEdad.getText());
-        int grado = Integer.parseInt(paramGrado.getText());
+        int grado = ObtenerGrado(conexionExistente, idGrupo);
+        
+        if (grado == -1) 
+        {
+            JOptionPane.showMessageDialog(null, "Error: No se encontró el grado para el grupo seleccionado.");
+            return false;
+        }
 
         int edad_minimo = grado + 5;
         int edad_maximo = grado + 6;
-        
-        String SQL = "SELECT correo_padre, telefono_padre FROM alumnos;";
-        
-        String[] datos = new String[2];
-        Statement st;
-        
 
         if (grado >= 1 && grado <= 6) 
         {
@@ -140,6 +137,12 @@ public class AlumnoControlador
         {
             JOptionPane.showMessageDialog(null, "No hay grupos mayores de 6 ni menores que 1");
         }
+        
+        /*
+        String SQL = "SELECT correo_padre, telefono_padre FROM alumnos;";
+        
+        String[] datos = new String[2];
+        Statement st;
         
         try
         {
@@ -162,46 +165,99 @@ public class AlumnoControlador
         {
             JOptionPane.showMessageDialog(null, "No se pudo mostrar: " + ex.toString());
         }
+        */
+        
+        //Validacion de duplicados
+        String correo = paramCorreoP.getText();
+        String telefono = paramTelefonoP.getText();
+        String SQL_padre = "SELECT COUNT(*) FROM alumnos WHERE correo_padre = ? OR telefono_padre = ?;";
+        
+        try (var ps = conexionExistente.prepareStatement(SQL_padre)) 
+        {
+            ps.setString(1, correo);
+            ps.setString(2, telefono);
+            try (var rs = ps.executeQuery()) 
+            {
+                if (rs.next() && rs.getInt(1) > 0) 
+                {
+                    JOptionPane.showMessageDialog(null, "No puede haber correos o teléfonos repetidos.");
+                    return false;
+                }
+            }
+        }
+     
+        catch (NumberFormatException e) 
+        {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor numérico válido para la edad.");
+            return false;
+        } 
+        catch (SQLException e) 
+        {
+            JOptionPane.showMessageDialog(null, "Error al validar los datos: " + e.getMessage());
+            return false;
+        }
         
         return true;
     }
     
-    public void InsertarAlumno(Connection conexionExistente, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramDomicilio, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo, JTextField paramGrado)
+    public int ObtenerGrado(Connection conexion, int idGrupo) 
     {
-        if(this.ValidarDatos(conexionExistente, paramEdad, paramGrado, paramCorreoP, paramTelefonoP) == true)
+        String sql = "SELECT grado FROM grupos WHERE id_grupo = ?;";
+        
+        try (var ps = conexion.prepareStatement(sql)) 
+        {
+            ps.setInt(1, idGrupo);
+            try (var rs = ps.executeQuery()) 
+            {
+                if (rs.next()) 
+                {
+                    return rs.getInt("grado");
+                }
+            }
+        }
+        catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, "No se encontró el ID del grupo.");
+        }
+        return -1; // Retorna -1 si no se encuentra el grupo.
+    }
+    
+    public void InsertarAlumno(Connection conexionExistente, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo)
+    {
+        int idGrupo = Integer.parseInt(paramGrupo.getText());
+        
+        if(this.ValidarDatos(conexionExistente, paramEdad, idGrupo, paramCorreoP, paramTelefonoP) == true)
         {
             Alumno ObjAlumno = new Alumno();
+            ObjAlumno.setCURP(paramCURP.getText());
             ObjAlumno.setNombre(paramNombre.getText());
             ObjAlumno.setApellido(paramApellido.getText());
             ObjAlumno.setEdad(Integer.parseInt(paramEdad.getText()));
             ObjAlumno.setGenero(paramGenero.getText());
-            ObjAlumno.setDomicilio(paramDomicilio.getText());
             ObjAlumno.setNombre_padre(paramNombreP.getText());
             ObjAlumno.setApellido_padre(paramApellidoP.getText());
             ObjAlumno.setCorreo_padre(paramCorreoP.getText());
             ObjAlumno.setTelefono_padre(paramTelefonoP.getText());
-            ObjAlumno.setGrupo(paramGrupo.getText());
-            ObjAlumno.setGrado(Integer.parseInt(paramGrado.getText()));
+            ObjAlumno.setGrupo(Integer.parseInt(paramGrupo.getText()));
 
             //Conexion ObjConexion = new Conexion();
 
-            String Consulta = "INSERT INTO alumnos (nombre, apellido, edad, genero, domicilio, nombre_padre, apellido_padre, correo_padre, telefono_padre, grupo, grado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String Consulta = "INSERT INTO alumnos (curp, nombre, apellido, edad, genero, nombre_padre, apellido_padre, correo_padre, telefono_padre, id_grupo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             try
             {
                 CallableStatement cs = conexionExistente.prepareCall(Consulta);
 
-                cs.setString(1, ObjAlumno.getNombre());
-                cs.setString(2, ObjAlumno.getApellido());
-                cs.setInt(3, ObjAlumno.getEdad());
-                cs.setString(4, ObjAlumno.getGenero());
-                cs.setString(5, ObjAlumno.getDomicilio());
+                cs.setString(1, ObjAlumno.getCURP());
+                cs.setString(2, ObjAlumno.getNombre());
+                cs.setString(3, ObjAlumno.getApellido());
+                cs.setInt(4, ObjAlumno.getEdad());
+                cs.setString(5, ObjAlumno.getGenero());
                 cs.setString(6, ObjAlumno.getNombre_padre());
                 cs.setString(7, ObjAlumno.getApellido_padre());
                 cs.setString(8, ObjAlumno.getCorreo_padre());
                 cs.setString(9, ObjAlumno.getTelefono_padre());
-                cs.setString(10, ObjAlumno.getGrupo());
-                cs.setInt(11, ObjAlumno.getGrado());
+                cs.setInt(10, ObjAlumno.getGrupo());
 
                 cs.execute();
 
@@ -209,49 +265,49 @@ public class AlumnoControlador
             }
             catch (HeadlessException | SQLException ex)
             {
-                JOptionPane.showMessageDialog(null, "Ha ocurrido un error" );
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error, revisa los datos" );
             }
         }
     }
     
-    public void ModificarAlumno(Connection conexionExistente, JTextField paramID, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramDomicilio, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo, JTextField paramGrado)
+    public void ModificarAlumno(Connection conexionExistente, JTextField paramID, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo)
     {
-        if(this.ValidarDatos(conexionExistente, paramEdad, paramGrado, paramCorreoP, paramTelefonoP) == true)
+        //int idGrupo = Integer.parseInt(paramGrupo.getText());
+        
+        //if(this.ValidarDatos(conexionExistente, paramEdad, idGrupo, paramCorreoP, paramTelefonoP) == true)
         {
             Alumno ObjAlumno = new Alumno();
             ObjAlumno.setId(Integer.parseInt(paramID.getText()));
+            ObjAlumno.setCURP(paramCURP.getText());
             ObjAlumno.setNombre(paramNombre.getText());
             ObjAlumno.setApellido(paramApellido.getText());
             ObjAlumno.setEdad(Integer.parseInt(paramEdad.getText()));
             ObjAlumno.setGenero(paramGenero.getText());
-            ObjAlumno.setDomicilio(paramDomicilio.getText());
             ObjAlumno.setNombre_padre(paramNombreP.getText());
             ObjAlumno.setApellido_padre(paramApellidoP.getText());
             ObjAlumno.setCorreo_padre(paramCorreoP.getText());
             ObjAlumno.setTelefono_padre(paramTelefonoP.getText());
-            ObjAlumno.setGrupo(paramGrupo.getText());
-            ObjAlumno.setGrado(Integer.parseInt(paramGrado.getText()));
+            ObjAlumno.setGrupo(Integer.parseInt(paramGrupo.getText()));
 
             //Conexion ObjConexion = new Conexion();
 
-            String Consulta = "UPDATE alumnos SET nombre =?, apellido =?, edad =?, genero =?, domicilio =?, nombre_padre =?, apellido_padre =?, correo_padre =?, telefono_padre =?, grupo =?, grado =? WHERE id_alumno =?;";
+            String Consulta = "UPDATE alumnos SET curp =?, nombre =?, apellido =?, edad =?, genero =?, nombre_padre =?, apellido_padre =?, correo_padre =?, telefono_padre =?, id_grupo =?  WHERE id_alumno =?;";
 
             try
             {
                 CallableStatement cs = conexionExistente.prepareCall(Consulta);
-
-                cs.setString(1, ObjAlumno.getNombre());
-                cs.setString(2, ObjAlumno.getApellido());
-                cs.setInt(3, ObjAlumno.getEdad());
-                cs.setString(4, ObjAlumno.getGenero());
-                cs.setString(5, ObjAlumno.getDomicilio());
+                
+                cs.setString(1, ObjAlumno.getCURP());
+                cs.setString(2, ObjAlumno.getNombre());
+                cs.setString(3, ObjAlumno.getApellido());
+                cs.setInt(4, ObjAlumno.getEdad());
+                cs.setString(5, ObjAlumno.getGenero());
                 cs.setString(6, ObjAlumno.getNombre_padre());
                 cs.setString(7, ObjAlumno.getApellido_padre());
                 cs.setString(8, ObjAlumno.getCorreo_padre());
                 cs.setString(9, ObjAlumno.getTelefono_padre());
-                cs.setString(10, ObjAlumno.getGrupo());
-                cs.setInt(11, ObjAlumno.getGrado());
-                cs.setInt(12, ObjAlumno.getId());
+                cs.setInt(10, ObjAlumno.getGrupo());
+                cs.setInt(11, ObjAlumno.getId());
 
                 cs.execute();
 
@@ -259,7 +315,7 @@ public class AlumnoControlador
             }
             catch(SQLException ex)
             {
-                JOptionPane.showMessageDialog(null, "Error al modificar");
+                JOptionPane.showMessageDialog(null, "Error al modificar, revisa los datos");
             }
         }
     }

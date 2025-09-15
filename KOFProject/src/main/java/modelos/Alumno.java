@@ -11,27 +11,16 @@ package modelos;
 public class Alumno 
 {
     int id;
+    String CURP;
     String nombre;
     String apellido;
     int edad;
     String genero;
-    String domicilio;
     String nombre_padre;
     String apellido_padre;
     String correo_padre;
     String telefono_padre;
-    String grupo;
-    int grado;
-
-    public int getGrado() 
-    {
-        return grado;
-    }
-
-    public void setGrado(int grado) 
-    {
-        this.grado = grado;
-    }
+    int grupo;
 
     public int getId() 
     {
@@ -41,6 +30,14 @@ public class Alumno
     public void setId(int id) 
     {
         this.id = id;
+    }
+    
+     public String getCURP() {
+        return CURP;
+    }
+
+    public void setCURP(String CURP) {
+        this.CURP = CURP;
     }
 
     public String getNombre() 
@@ -83,16 +80,6 @@ public class Alumno
         this.genero = genero;
     }
 
-    public String getDomicilio() 
-    {
-        return domicilio;
-    }
-
-    public void setDomicilio(String domicilio) 
-    {
-        this.domicilio = domicilio;
-    }
-
     public String getNombre_padre() 
     {
         return nombre_padre;
@@ -132,13 +119,13 @@ public class Alumno
     {
         this.telefono_padre = telefono_padre;
     }
-
-    public String getGrupo() 
+    
+    public int getGrupo() 
     {
         return grupo;
     }
 
-    public void setGrupo(String grupo) 
+    public void setGrupo(int grupo) 
     {
         this.grupo = grupo;
     }

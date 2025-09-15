@@ -20,6 +20,8 @@ public class FormAlumnos extends javax.swing.JFrame {
     public FormAlumnos() 
     {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         
         AlumnoControlador ObjAlumnoControlador = new AlumnoControlador();
         if (FormLogin.conexionGlobal != null && FormLogin.conexionGlobal.ValidarConexion()) 
@@ -47,7 +49,6 @@ public class FormAlumnos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         ID_tb = new javax.swing.JTextField();
@@ -56,7 +57,6 @@ public class FormAlumnos extends javax.swing.JFrame {
         Apellido_tb = new javax.swing.JTextField();
         Genero_tb = new javax.swing.JTextField();
         ApellidoP_tb = new javax.swing.JTextField();
-        Domicilio_tb = new javax.swing.JTextField();
         NombreP_tb = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         Alumnos_tabla = new javax.swing.JTable();
@@ -68,12 +68,14 @@ public class FormAlumnos extends javax.swing.JFrame {
         CorreoP_tb = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         TelefonoP_tb = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         Grupo_tb = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        Grado_tb = new javax.swing.JTextField();
+        CURP_tb = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        Filtrar_bt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Alumnos");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("ID Alumno");
@@ -90,14 +92,13 @@ public class FormAlumnos extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Género");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Domicilio");
-
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Nombre del padre");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Apellido del padre");
+
+        ID_tb.setEditable(false);
 
         Alumnos_tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,6 +140,11 @@ public class FormAlumnos extends javax.swing.JFrame {
         });
 
         Volver_bt.setText("Volver");
+        Volver_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Volver_btActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Correo del padre");
@@ -146,11 +152,13 @@ public class FormAlumnos extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Teléfono del padre");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel11.setText("Grado");
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("ID Grupo");
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setText("Grupo");
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setText("CURP");
+
+        Filtrar_bt.setText("Filtrar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,49 +169,54 @@ public class FormAlumnos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Modificar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Eliminar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Volver_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Volver_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(2, 2, 2))
+                    .addComponent(Insertar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Modificar_bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(TelefonoP_tb, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Grupo_tb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(1, 1, 1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(CorreoP_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(ApellidoP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(Genero_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(Apellido_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(Edad_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(Nombre_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(NombreP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(CorreoP_tb)
-                                            .addComponent(ApellidoP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(Genero_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(Apellido_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(Edad_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(ID_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(Nombre_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(Domicilio_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(NombreP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel11))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(Grado_tb)
-                                            .addComponent(Grupo_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                                            .addComponent(TelefonoP_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Insertar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel11))
+                                .addGap(63, 63, 63)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(CURP_tb)
+                                    .addComponent(ID_tb, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(Filtrar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1083, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -215,6 +228,10 @@ public class FormAlumnos extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(ID_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(CURP_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -233,10 +250,6 @@ public class FormAlumnos extends javax.swing.JFrame {
                             .addComponent(Genero_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(Domicilio_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(NombreP_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -245,20 +258,18 @@ public class FormAlumnos extends javax.swing.JFrame {
                             .addComponent(ApellidoP_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CorreoP_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)
+                            .addComponent(CorreoP_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(TelefonoP_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
+                            .addComponent(jLabel6)
                             .addComponent(Grupo_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(Grado_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(Filtrar_bt)
                         .addGap(18, 18, 18)
                         .addComponent(Insertar_bt)
                         .addGap(18, 18, 18)
@@ -266,8 +277,7 @@ public class FormAlumnos extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(Eliminar_bt)
                         .addGap(18, 18, 18)
-                        .addComponent(Volver_bt)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(Volver_bt))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -294,18 +304,18 @@ public class FormAlumnos extends javax.swing.JFrame {
 
     private void Alumnos_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Alumnos_tablaMouseClicked
         AlumnoControlador ObjAlumnoControlador = new AlumnoControlador();
-        ObjAlumnoControlador.SeleccionarAlumno(ID_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, Domicilio_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb, Grado_tb, Alumnos_tabla);
+        ObjAlumnoControlador.SeleccionarAlumno(ID_tb, CURP_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb, Alumnos_tabla);
     }//GEN-LAST:event_Alumnos_tablaMouseClicked
 
     private void Insertar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Insertar_btActionPerformed
         AlumnoControlador ObjAlumnoControlador = new AlumnoControlador();
-        ObjAlumnoControlador.InsertarAlumno(FormLogin.conexionGlobal.IniciarConexion(), Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, Domicilio_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb, Grado_tb);
+        ObjAlumnoControlador.InsertarAlumno(FormLogin.conexionGlobal.IniciarConexion(), CURP_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb);
         ObjAlumnoControlador.MostrarAlumno(FormLogin.conexionGlobal.IniciarConexion(), Alumnos_tabla);
     }//GEN-LAST:event_Insertar_btActionPerformed
 
     private void Modificar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Modificar_btActionPerformed
         AlumnoControlador ObjAlumnoControlador = new AlumnoControlador();
-        ObjAlumnoControlador.ModificarAlumno(FormLogin.conexionGlobal.IniciarConexion(), ID_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, Domicilio_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb, Grado_tb);
+        ObjAlumnoControlador.ModificarAlumno(FormLogin.conexionGlobal.IniciarConexion(), ID_tb, CURP_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb);
         ObjAlumnoControlador.MostrarAlumno(FormLogin.conexionGlobal.IniciarConexion(), Alumnos_tabla);
     }//GEN-LAST:event_Modificar_btActionPerformed
 
@@ -314,6 +324,12 @@ public class FormAlumnos extends javax.swing.JFrame {
         ObjAlumnoControlador.EliminarAlumno(FormLogin.conexionGlobal.IniciarConexion(), ID_tb);
         ObjAlumnoControlador.MostrarAlumno(FormLogin.conexionGlobal.IniciarConexion(), Alumnos_tabla);
     }//GEN-LAST:event_Eliminar_btActionPerformed
+
+    private void Volver_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Volver_btActionPerformed
+        FormMenu ObjFormMenu = new FormMenu();
+        ObjFormMenu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_Volver_btActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,12 +360,12 @@ public class FormAlumnos extends javax.swing.JFrame {
     private javax.swing.JTable Alumnos_tabla;
     private javax.swing.JTextField ApellidoP_tb;
     private javax.swing.JTextField Apellido_tb;
+    private javax.swing.JTextField CURP_tb;
     private javax.swing.JTextField CorreoP_tb;
-    private javax.swing.JTextField Domicilio_tb;
     private javax.swing.JTextField Edad_tb;
     private javax.swing.JButton Eliminar_bt;
+    private javax.swing.JButton Filtrar_bt;
     private javax.swing.JTextField Genero_tb;
-    private javax.swing.JTextField Grado_tb;
     private javax.swing.JTextField Grupo_tb;
     private javax.swing.JTextField ID_tb;
     private javax.swing.JButton Insertar_bt;
@@ -361,7 +377,6 @@ public class FormAlumnos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

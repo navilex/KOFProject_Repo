@@ -20,6 +20,8 @@ public class FormSecretarios extends javax.swing.JFrame {
     public FormSecretarios() 
     {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         
         SecretarioControlador ObjSecretarioControlador = new SecretarioControlador();
         if (FormLogin.conexionGlobal != null && FormLogin.conexionGlobal.ValidarConexion()) 
@@ -66,6 +68,7 @@ public class FormSecretarios extends javax.swing.JFrame {
         Volver_bt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Secretarios");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("ID Secretario");
@@ -90,6 +93,8 @@ public class FormSecretarios extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Contraseña");
+
+        ID_tb.setEditable(false);
 
         Secretarios_tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,6 +136,11 @@ public class FormSecretarios extends javax.swing.JFrame {
         });
 
         Volver_bt.setText("Volver");
+        Volver_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Volver_btActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -259,6 +269,12 @@ public class FormSecretarios extends javax.swing.JFrame {
         ObjSecretarioControlador.EliminarSecretario(FormLogin.conexionGlobal.IniciarConexion(), ID_tb);
         ObjSecretarioControlador.MostrarSecretario(FormLogin.conexionGlobal.IniciarConexion(), Secretarios_tabla);
     }//GEN-LAST:event_Eliminar_btActionPerformed
+
+    private void Volver_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Volver_btActionPerformed
+        FormMenu ObjFormMenu = new FormMenu();
+        ObjFormMenu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_Volver_btActionPerformed
 
     /**
      * @param args the command line arguments

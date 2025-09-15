@@ -50,6 +50,7 @@ public class FormLogin extends javax.swing.JFrame {
         Clave_tb = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Iniciar Sesión");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Iniciar Sesión");
@@ -182,15 +183,15 @@ public class FormLogin extends javax.swing.JFrame {
         if (conexionGlobal.ValidarConexion())
         {
             //JOptionPane.showMessageDialog(null, "Conexión exitosa");
-            //FormSecretarios ObjFormSecretarios = new FormSecretarios();
-            //ObjFormSecretarios.setVisible(true);
             
-            FormAlumnos ObjAlumnos = new FormAlumnos();
-            ObjAlumnos.setVisible(true);
+            FormMenu ObjFormMenu = new FormMenu();
+            ObjFormMenu.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_Ingresar_btActionPerformed
 
     private void Salir_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salir_btActionPerformed
+
         System.exit(0);
     }//GEN-LAST:event_Salir_btActionPerformed
 
