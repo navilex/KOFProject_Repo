@@ -159,6 +159,11 @@ public class FormAlumnos extends javax.swing.JFrame {
         jLabel11.setText("CURP");
 
         Filtrar_bt.setText("Filtrar");
+        Filtrar_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Filtrar_btActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -331,6 +336,13 @@ public class FormAlumnos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_Volver_btActionPerformed
 
+    private void Filtrar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtrar_btActionPerformed
+        FormFiltrarAlumnos ObjFormFiltrarAlumnos = new FormFiltrarAlumnos();
+        ObjFormFiltrarAlumnos.setForm1(this);
+        ObjFormFiltrarAlumnos.setVisible(true);
+        //this.setVisible(false);
+    }//GEN-LAST:event_Filtrar_btActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -357,7 +369,7 @@ public class FormAlumnos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Alumnos_tabla;
+    protected javax.swing.JTable Alumnos_tabla;
     private javax.swing.JTextField ApellidoP_tb;
     private javax.swing.JTextField Apellido_tb;
     private javax.swing.JTextField CURP_tb;

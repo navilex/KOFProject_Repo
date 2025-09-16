@@ -5,9 +5,6 @@
 package vistas;
 
 import conexion.Conexion;
-import java.awt.Dimension;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 /**
  *
  * @author Ivan De la Rosa
