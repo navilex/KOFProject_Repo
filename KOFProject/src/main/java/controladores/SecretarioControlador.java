@@ -36,15 +36,12 @@ public class SecretarioControlador
         MiModeloTabla.addColumn("ID");
         MiModeloTabla.addColumn("Nombre");
         MiModeloTabla.addColumn("Apellido");
-        MiModeloTabla.addColumn("Correo");
-        MiModeloTabla.addColumn("Teléfono");
-        MiModeloTabla.addColumn("Domicilio");
         MiModeloTabla.addColumn("Usuario");
         MiModeloTabla.addColumn("Clave");
         
         Secretarios_tabla.setModel(MiModeloTabla);
         
-        String[] datos = new String[8];
+        String[] datos = new String[5];
         Statement st;
         
         try
@@ -59,9 +56,6 @@ public class SecretarioControlador
                 datos[2]=rs.getString(3);
                 datos[3]=rs.getString(4);
                 datos[4]=rs.getString(5);
-                datos[5]=rs.getString(6);
-                datos[6]=rs.getString(7);
-                datos[7]=rs.getString(8);
                 
                 MiModeloTabla.addRow(datos);
             }
@@ -74,7 +68,7 @@ public class SecretarioControlador
         }
     }   
     
-    public void SeleccionarSecretario(JTextField paramID, JTextField paramNombre, JTextField paramApellido, JTextField paramCorreo, JTextField paramTelefono, JTextField paramDomicilio, JTextField paramUsuario, JTextField paramClave, JTable paramTabla)
+    public void SeleccionarSecretario(JTextField paramID, JTextField paramNombre, JTextField paramApellido, JTextField paramUsuario, JTextField paramClave, JTable paramTabla)
     {
         try
         {
@@ -85,11 +79,8 @@ public class SecretarioControlador
                 paramID.setText(paramTabla.getValueAt(fila, 0).toString());
                 paramNombre.setText(paramTabla.getValueAt(fila, 1).toString());
                 paramApellido.setText(paramTabla.getValueAt(fila, 2).toString());
-                paramCorreo.setText(paramTabla.getValueAt(fila, 3).toString());
-                paramTelefono.setText(paramTabla.getValueAt(fila, 4).toString());
-                paramDomicilio.setText(paramTabla.getValueAt(fila, 5).toString());
-                paramUsuario.setText(paramTabla.getValueAt(fila, 6).toString());
-                paramClave.setText(paramTabla.getValueAt(fila, 7).toString());
+                paramUsuario.setText(paramTabla.getValueAt(fila, 3).toString());
+                paramClave.setText(paramTabla.getValueAt(fila, 4).toString());
             }
             else
             {
@@ -102,13 +93,39 @@ public class SecretarioControlador
         }
     }
     
-    public void MaximoSecretario(Connection conexionExistente, JTextField paramNombre, JTextField paramApellido, JTextField paramCorreo, JTextField paramTelefono, JTextField paramDomicilio, JTextField paramUsuario, JTextField paramClave)
+    public boolean ValidarDatos(Connection conexionExistente, JTextField paramNombre, JTextField paramApellido, JTextField paramUsuario)
+    {
+        //Nombres----------------------------------------------------------------------------
+        if(!(paramNombre.getText() != null && paramNombre.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")))
+        {
+            JOptionPane.showMessageDialog(null, "Los nombres solo pueden contener letras");
+            return false;
+        }
+        
+        //Apellidos---------------------------------------------------------------------------
+        if(!(paramApellido.getText() != null && paramApellido.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")))
+        {
+            JOptionPane.showMessageDialog(null, "Los apellidos solo pueden contener letras");
+            return false;
+        }
+        
+        //Usuarios----------------------------------------------------------------------------
+        if(!(paramUsuario.getText() != null && paramUsuario.getText().matches("^((?!director).)*$")))
+        {
+            JOptionPane.showMessageDialog(null, "Nombre de usuario inválido");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public void MaximoSecretario(Connection conexionExistente, JTextField paramNombre, JTextField paramApellido, JTextField paramUsuario, JTextField paramClave)
     {   
         int contador = 0;
         
         String SQL = "SELECT * FROM secretarios;";
         
-        String[] datos = new String[8];
+        String[] datos = new String[5];
         Statement st;
         
         try
@@ -123,16 +140,13 @@ public class SecretarioControlador
                 datos[2]=rs.getString(3);
                 datos[3]=rs.getString(4);
                 datos[4]=rs.getString(5);
-                datos[5]=rs.getString(6);
-                datos[6]=rs.getString(7);
-                datos[7]=rs.getString(8);
                 
                 contador ++;
             }
             
             if(contador < 3)
             {
-                this.InsertarSecretario(conexionExistente, paramNombre, paramApellido, paramCorreo, paramTelefono, paramDomicilio, paramUsuario, paramClave);
+                this.InsertarSecretario(conexionExistente, paramNombre, paramApellido, paramUsuario, paramClave);
             }
             else
             {
@@ -146,99 +160,78 @@ public class SecretarioControlador
         }
     }   
     
-    public void InsertarSecretario(Connection conexionExistente, JTextField paramNombre, JTextField paramApellido, JTextField paramCorreo, JTextField paramTelefono, JTextField paramDomicilio, JTextField paramUsuario, JTextField paramClave)
-    {        
-        Secretario ObjSecretario = new Secretario();
-        ObjSecretario.setNombre(paramNombre.getText());
-        ObjSecretario.setApellido(paramApellido.getText());
-        ObjSecretario.setCorreo(paramCorreo.getText());
-        ObjSecretario.setTelefono(paramTelefono.getText());
-        ObjSecretario.setDomicilio(paramDomicilio.getText());
-        ObjSecretario.setUsuario(paramUsuario.getText());
-        ObjSecretario.setClave(paramClave.getText());
-        
-        //Conexion ObjConexion = new Conexion();
-        
-        String Consulta = "INSERT INTO secretarios (nombre, apellido, correo, telefono, domicilio, usuario, clave) VALUES (?, ?, ?, ?, ?, ?, ?);";
-        
-        try
+    public void InsertarSecretario(Connection conexionExistente, JTextField paramNombre, JTextField paramApellido, JTextField paramUsuario, JTextField paramClave)
+    {  
+        if(this.ValidarDatos(conexionExistente, paramNombre, paramApellido, paramUsuario))
         {
-            CallableStatement cs = conexionExistente.prepareCall(Consulta);
-            
-            cs.setString(1, ObjSecretario.getNombre());
-            cs.setString(2, ObjSecretario.getApellido());
-            cs.setString(3, ObjSecretario.getCorreo());
-            cs.setString(4, ObjSecretario.getTelefono());
-            cs.setString(5, ObjSecretario.getDomicilio());
-            cs.setString(6, ObjSecretario.getUsuario());
-            cs.setString(7, ObjSecretario.getClave());
-            
-            cs.execute();
-            
-            this.RegistrarSecretario(conexionExistente);
-            
-            JOptionPane.showMessageDialog(null, "Se inserto correctamente");
-        }
-        catch (HeadlessException | SQLException ex)
-        {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.toString());
+            Secretario ObjSecretario = new Secretario();
+            ObjSecretario.setNombre(paramNombre.getText());
+            ObjSecretario.setApellido(paramApellido.getText());
+            ObjSecretario.setUsuario(paramUsuario.getText());
+            ObjSecretario.setClave(paramClave.getText());
+
+            //Conexion ObjConexion = new Conexion();
+
+            String Consulta = "INSERT INTO secretarios (nombre, apellido, usuario, clave) VALUES (?, ?, ?, ?);";
+
+            try
+            {
+                CallableStatement cs = conexionExistente.prepareCall(Consulta);
+
+                cs.setString(1, ObjSecretario.getNombre());
+                cs.setString(2, ObjSecretario.getApellido());
+                cs.setString(3, ObjSecretario.getUsuario());
+                cs.setString(4, ObjSecretario.getClave());
+
+                cs.execute();
+
+                this.GestionarSecretario(conexionExistente);
+
+                JOptionPane.showMessageDialog(null, "Se inserto correctamente");
+            }
+            catch (HeadlessException | SQLException ex)
+            {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.toString());
+            }
         }
     }
     
-    public void RegistrarSecretario(Connection conexionExistente)
+    public void ModificarSecretario(Connection conexionExistente, JTextField paramID, JTextField paramNombre, JTextField paramApellido, JTextField paramUsuario, JTextField paramClave)
     {
-        String Consulta = "{CALL crear_secretarios()}";
+        if(this.ValidarDatos(conexionExistente, paramNombre, paramApellido, paramUsuario))
+        {
+            Secretario ObjSecretario = new Secretario();
+            ObjSecretario.setNombre(paramNombre.getText());
+            ObjSecretario.setApellido(paramApellido.getText());
+            ObjSecretario.setUsuario(paramUsuario.getText());
+            ObjSecretario.setClave(paramClave.getText());
+            ObjSecretario.setId(Integer.parseInt(paramID.getText()));
 
-        try
-        {
-            CallableStatement cs = conexionExistente.prepareCall(Consulta);
-            cs.execute();
+            //Conexion ObjConexion = new Conexion();
 
-            JOptionPane.showMessageDialog(null, "Se agrego usuario correctamente");
-        }
-        catch (SQLException ex)
-        {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.toString());
-        }    
-    }
-    
-    public void ModificarSecretario(Connection conexionExistente, JTextField paramID, JTextField paramNombre, JTextField paramApellido, JTextField paramCorreo, JTextField paramTelefono, JTextField paramDomicilio, JTextField paramUsuario, JTextField paramClave)
-    {
-        Secretario ObjSecretario = new Secretario();
-        ObjSecretario.setNombre(paramNombre.getText());
-        ObjSecretario.setApellido(paramApellido.getText());
-        ObjSecretario.setCorreo(paramCorreo.getText());
-        ObjSecretario.setTelefono(paramTelefono.getText());
-        ObjSecretario.setDomicilio(paramDomicilio.getText());
-        ObjSecretario.setUsuario(paramUsuario.getText());
-        ObjSecretario.setClave(paramClave.getText());
-        ObjSecretario.setId(Integer.parseInt(paramID.getText()));
-        
-        //Conexion ObjConexion = new Conexion();
-        
-        String Consulta = "UPDATE secretarios SET nombre =?, apellido =?, correo =?, telefono =?, domicilio =?, usuario =?, clave=? WHERE id_secretario =?;";
-        
-        try
-        {
-            CallableStatement cs = conexionExistente.prepareCall(Consulta);
-            
-            cs.setString(1, ObjSecretario.getNombre());
-            cs.setString(2, ObjSecretario.getApellido());
-            cs.setString(3, ObjSecretario.getCorreo());
-            cs.setString(4, ObjSecretario.getTelefono());
-            cs.setString(5, ObjSecretario.getDomicilio());
-            cs.setString(6, ObjSecretario.getUsuario());
-            cs.setString(7, ObjSecretario.getClave());
-            cs.setInt(8, ObjSecretario.getId());
-            
-            cs.execute();
-            
-            JOptionPane.showMessageDialog(null, "Modificacion exitosa");
-        }
-        catch(SQLException ex)
-        {
-            JOptionPane.showMessageDialog(null, "Error al modificar: " + ex.toString());
-        }
+            String Consulta = "UPDATE secretarios SET nombre =?, apellido =?, usuario =?, clave=? WHERE id_secretario =?;";
+
+            try
+            {
+                CallableStatement cs = conexionExistente.prepareCall(Consulta);
+
+                cs.setString(1, ObjSecretario.getNombre());
+                cs.setString(2, ObjSecretario.getApellido());
+                cs.setString(3, ObjSecretario.getUsuario());
+                cs.setString(4, ObjSecretario.getClave());
+                cs.setInt(5, ObjSecretario.getId());
+
+                cs.execute();
+
+                this.GestionarSecretario(conexionExistente);
+
+                JOptionPane.showMessageDialog(null, "Modificacion exitosa");
+            }
+            catch(SQLException ex)
+            {
+                JOptionPane.showMessageDialog(null, "Error al modificar: " + ex.toString());
+            }
+        }   
     }
     
     public void EliminarSecretario(Connection conexionExistente, JTextField paramID)
@@ -262,6 +255,8 @@ public class SecretarioControlador
 
                     cs.setInt(1, ObjSecretario.getId());
                     cs.execute();
+                    
+                    this.GestionarSecretario(conexionExistente);
 
                     JOptionPane.showMessageDialog(null, "Registro borrado");
                 }
@@ -279,5 +274,22 @@ public class SecretarioControlador
             default:
                 break;
         }
+    }
+    
+    public void GestionarSecretario(Connection conexionExistente)
+    {
+        String Consulta = "{CALL gestionar_secretarios()}";
+
+        try
+        {
+            CallableStatement cs = conexionExistente.prepareCall(Consulta);
+            cs.execute();
+
+            JOptionPane.showMessageDialog(null, "Operación exitosa");
+        }
+        catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + ex.toString());
+        }    
     }
 }

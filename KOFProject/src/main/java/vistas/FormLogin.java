@@ -176,12 +176,12 @@ public class FormLogin extends javax.swing.JFrame {
         conexionGlobal = new Conexion();
         conexionGlobal.ObtenerUsuario(Usuario_tb.getText(), clave);
         conexionGlobal.IniciarConexion();
-        
         if (conexionGlobal.ValidarConexion())
         {
             //JOptionPane.showMessageDialog(null, "Conexión exitosa");
             
             FormMenu ObjFormMenu = new FormMenu();
+            ObjFormMenu.setFormLogin(this);
             ObjFormMenu.setVisible(true);
             this.setVisible(false);
         }

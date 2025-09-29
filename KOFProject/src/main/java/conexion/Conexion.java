@@ -27,6 +27,11 @@ public class Conexion
         password = Clave;
     }
     
+    public String RegresarUsuario()
+    {
+        return user;
+    }
+    
     public Connection IniciarConexion()
     {
         try
@@ -43,7 +48,22 @@ public class Conexion
         }
         catch(SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, "Error al conectarse: " + ex.getMessage() + "\nEstado: " + ex.getSQLState() + "\nCodigo Error: " + ex.getErrorCode() +"\nContacte con el administrador");
+            //JOptionPane.showMessageDialog(null, "Error al conectarse: " + ex.getMessage() + "\nEstado: " + ex.getSQLState() + "\nCodigo Error: " + ex.getErrorCode() +"\nContacte con el administrador");
+            
+            String sqlState = ex.getSQLState();
+            
+            if("08001".equals(sqlState) || "08006".equals(sqlState))
+            {
+                JOptionPane.showMessageDialog(null, "Error al conectarse, no se pudo conectar al servidor");
+            }
+            else if("28000".equals(sqlState))
+            {
+                JOptionPane.showMessageDialog(null, "Credenciales de acceseo inválidas");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            }
         }
         
         return conexion;

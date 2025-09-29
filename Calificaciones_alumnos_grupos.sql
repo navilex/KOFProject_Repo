@@ -1,5 +1,3 @@
-
-
 CREATE TABLE Grupos (
     id_grupo SERIAL PRIMARY KEY,
     Grado INTEGER NOT NULL,

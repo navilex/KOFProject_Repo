@@ -1,0 +1,1 @@
+CREATE DATABASE Calificaciones_alumnos;

@@ -1,11 +1,13 @@
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\com\mycompany\kofproject\KOFProject.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\conexion\Conexion.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\AlumnoControlador.java
+D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\GenerarBoletaControlador.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\SecretarioControlador.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\modelos\Alumno.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\modelos\Secretario.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormAlumnos.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormFiltrarAlumnos.java
+D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormGenerarBoletas.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormLogin.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormMenu.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormSecretarios.java

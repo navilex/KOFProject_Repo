@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
 public class FormSecretarios extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormSecretarios.class.getName());
-
+    private FormMenu FormMenu;
+    
     /**
      * Creates new form FormSecretarios
      */
@@ -47,18 +48,12 @@ public class FormSecretarios extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         ID_tb = new javax.swing.JTextField();
-        Correo_tb = new javax.swing.JTextField();
         Nombre_tb = new javax.swing.JTextField();
         Apellido_tb = new javax.swing.JTextField();
-        Telefono_tb = new javax.swing.JTextField();
         Clave_tb = new javax.swing.JTextField();
-        Domicilio_tb = new javax.swing.JTextField();
         Usuario_tb = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         Secretarios_tabla = new javax.swing.JTable();
@@ -78,15 +73,6 @@ public class FormSecretarios extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Apellido");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Correo");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Teléfono");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Domicilio");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Usuario");
@@ -148,31 +134,30 @@ public class FormSecretarios extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Clave_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Telefono_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Apellido_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Correo_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ID_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nombre_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Domicilio_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Usuario_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Nombre_tb, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Modificar_bt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Eliminar_bt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Insertar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Modificar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Eliminar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Volver_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Usuario_tb)
+                            .addComponent(Clave_tb)))
+                    .addComponent(Volver_bt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
                 .addContainerGap())
@@ -196,18 +181,6 @@ public class FormSecretarios extends javax.swing.JFrame {
                             .addComponent(Apellido_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(Correo_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(Telefono_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(Domicilio_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(Usuario_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -222,8 +195,8 @@ public class FormSecretarios extends javax.swing.JFrame {
                         .addComponent(Eliminar_bt)
                         .addGap(18, 18, 18)
                         .addComponent(Volver_bt)
-                        .addGap(0, 50, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -247,20 +220,25 @@ public class FormSecretarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setFormMenu(FormMenu FormMenu)
+    {
+        this.FormMenu = FormMenu;
+    }
+    
     private void Secretarios_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Secretarios_tablaMouseClicked
         SecretarioControlador ObjSecretarioControlador = new SecretarioControlador();
-        ObjSecretarioControlador.SeleccionarSecretario(ID_tb, Nombre_tb, Apellido_tb, Correo_tb, Telefono_tb, Domicilio_tb, Usuario_tb, Clave_tb, Secretarios_tabla);
+        ObjSecretarioControlador.SeleccionarSecretario(ID_tb, Nombre_tb, Apellido_tb, Usuario_tb, Clave_tb, Secretarios_tabla);
     }//GEN-LAST:event_Secretarios_tablaMouseClicked
 
     private void Insertar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Insertar_btActionPerformed
         SecretarioControlador ObjSecretarioControlador = new SecretarioControlador();
-        ObjSecretarioControlador.MaximoSecretario(FormLogin.conexionGlobal.IniciarConexion(), Nombre_tb, Apellido_tb, Correo_tb, Telefono_tb, Domicilio_tb, Usuario_tb, Clave_tb);
+        ObjSecretarioControlador.MaximoSecretario(FormLogin.conexionGlobal.IniciarConexion(), Nombre_tb, Apellido_tb, Usuario_tb, Clave_tb);
         ObjSecretarioControlador.MostrarSecretario(FormLogin.conexionGlobal.IniciarConexion(), Secretarios_tabla);
     }//GEN-LAST:event_Insertar_btActionPerformed
 
     private void Modificar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Modificar_btActionPerformed
         SecretarioControlador ObjSecretarioControlador = new SecretarioControlador();
-        ObjSecretarioControlador.ModificarSecretario(FormLogin.conexionGlobal.IniciarConexion(), ID_tb, Nombre_tb, Apellido_tb, Correo_tb, Telefono_tb, Domicilio_tb, Usuario_tb, Clave_tb);
+        ObjSecretarioControlador.ModificarSecretario(FormLogin.conexionGlobal.IniciarConexion(), ID_tb, Nombre_tb, Apellido_tb, Usuario_tb, Clave_tb);
         ObjSecretarioControlador.MostrarSecretario(FormLogin.conexionGlobal.IniciarConexion(), Secretarios_tabla);
     }//GEN-LAST:event_Modificar_btActionPerformed
 
@@ -271,8 +249,7 @@ public class FormSecretarios extends javax.swing.JFrame {
     }//GEN-LAST:event_Eliminar_btActionPerformed
 
     private void Volver_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Volver_btActionPerformed
-        FormMenu ObjFormMenu = new FormMenu();
-        ObjFormMenu.setVisible(true);
+        FormMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Volver_btActionPerformed
 
@@ -304,23 +281,17 @@ public class FormSecretarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Apellido_tb;
     private javax.swing.JTextField Clave_tb;
-    private javax.swing.JTextField Correo_tb;
-    private javax.swing.JTextField Domicilio_tb;
     private javax.swing.JButton Eliminar_bt;
     private javax.swing.JTextField ID_tb;
     private javax.swing.JButton Insertar_bt;
     private javax.swing.JButton Modificar_bt;
     private javax.swing.JTextField Nombre_tb;
     private javax.swing.JTable Secretarios_tabla;
-    private javax.swing.JTextField Telefono_tb;
     private javax.swing.JTextField Usuario_tb;
     private javax.swing.JButton Volver_bt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;

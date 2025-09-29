@@ -5,6 +5,7 @@
 package vistas;
 
 import java.sql.SQLException;
+import static vistas.FormLogin.conexionGlobal;
 
 /**
  *
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 public class FormMenu extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormMenu.class.getName());
+    private FormLogin FormLogin;
 
     /**
      * Creates new form FormMenu
@@ -21,6 +23,11 @@ public class FormMenu extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        
+        if(conexionGlobal.RegresarUsuario().matches("^((?!director).)*$"))
+        {
+            Secretarios_bt.setVisible(false);
+        }
     }
 
     /**
@@ -34,6 +41,7 @@ public class FormMenu extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        Generar_bt = new javax.swing.JButton();
         Alumnos_bt = new javax.swing.JButton();
         Secretarios_bt = new javax.swing.JButton();
         Volver_bt = new javax.swing.JButton();
@@ -53,6 +61,15 @@ public class FormMenu extends javax.swing.JFrame {
         jLabel3.setText("Menú principal");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
+        Generar_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
+        Generar_bt.setText("Generar boletas");
+        Generar_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Generar_btActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Generar_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 210, 30));
+
         Alumnos_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
         Alumnos_bt.setText("Altas alumnos");
         Alumnos_bt.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +86,7 @@ public class FormMenu extends javax.swing.JFrame {
                 Secretarios_btActionPerformed(evt);
             }
         });
-        getContentPane().add(Secretarios_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 210, 30));
+        getContentPane().add(Secretarios_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 210, 30));
 
         Volver_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
         Volver_bt.setText("Cerrar sesión");
@@ -86,21 +103,27 @@ public class FormMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setFormLogin(FormLogin FormLogin)
+    {
+        this.FormLogin = FormLogin;
+    }
+    
     private void Alumnos_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Alumnos_btActionPerformed
-        FormAlumnos ObjAlumnos = new FormAlumnos();
-        ObjAlumnos.setVisible(true);
+        FormAlumnos ObjFormAlumnos = new FormAlumnos();
+        ObjFormAlumnos.setFormMenu(this);
+        ObjFormAlumnos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Alumnos_btActionPerformed
 
     private void Secretarios_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Secretarios_btActionPerformed
         FormSecretarios ObjFormSecretarios = new FormSecretarios();
+        ObjFormSecretarios.setFormMenu(this);
         ObjFormSecretarios.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Secretarios_btActionPerformed
 
     private void Volver_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Volver_btActionPerformed
-        FormLogin ObjFormLogin = new FormLogin();
-        ObjFormLogin.setVisible(true);
+        FormLogin.setVisible(true);
         
         try 
         {
@@ -113,6 +136,13 @@ public class FormMenu extends javax.swing.JFrame {
         
         this.setVisible(false);
     }//GEN-LAST:event_Volver_btActionPerformed
+
+    private void Generar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Generar_btActionPerformed
+        FormGenerarBoletas ObjFormGenerarBoletas = new FormGenerarBoletas();
+        ObjFormGenerarBoletas.setFormMenu(this);
+        ObjFormGenerarBoletas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_Generar_btActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,6 +171,7 @@ public class FormMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Alumnos_bt;
+    private javax.swing.JButton Generar_bt;
     private javax.swing.JButton Secretarios_bt;
     private javax.swing.JButton Volver_bt;
     private javax.swing.JLabel jLabel1;

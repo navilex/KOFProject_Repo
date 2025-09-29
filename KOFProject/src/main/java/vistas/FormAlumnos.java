@@ -13,7 +13,10 @@ import javax.swing.JOptionPane;
 public class FormAlumnos extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormAlumnos.class.getName());
-
+    private FormMenu FormMenu;
+    
+    FormFiltrarAlumnos ObjFormFiltrarAlumnos = new FormFiltrarAlumnos();
+    
     /**
      * Creates new form FormSecretarios
      */
@@ -307,6 +310,11 @@ public class FormAlumnos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setFormMenu(FormMenu FormMenu)
+    {
+        this.FormMenu = FormMenu;
+    }
+    
     private void Alumnos_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Alumnos_tablaMouseClicked
         AlumnoControlador ObjAlumnoControlador = new AlumnoControlador();
         ObjAlumnoControlador.SeleccionarAlumno(ID_tb, CURP_tb, Nombre_tb, Apellido_tb, Edad_tb, Genero_tb, NombreP_tb, ApellidoP_tb, CorreoP_tb, TelefonoP_tb, Grupo_tb, Alumnos_tabla);
@@ -331,13 +339,11 @@ public class FormAlumnos extends javax.swing.JFrame {
     }//GEN-LAST:event_Eliminar_btActionPerformed
 
     private void Volver_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Volver_btActionPerformed
-        FormMenu ObjFormMenu = new FormMenu();
-        ObjFormMenu.setVisible(true);
+        FormMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Volver_btActionPerformed
 
     private void Filtrar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtrar_btActionPerformed
-        FormFiltrarAlumnos ObjFormFiltrarAlumnos = new FormFiltrarAlumnos();
         ObjFormFiltrarAlumnos.setForm1(this);
         ObjFormFiltrarAlumnos.setVisible(true);
         //this.setVisible(false);

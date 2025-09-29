@@ -13,9 +13,6 @@ public class Secretario
     int id;
     String nombre;
     String apellido;
-    String correo;
-    String telefono;
-    String domicilio;
     String usuario;
     String clave;
 
@@ -47,36 +44,6 @@ public class Secretario
     public void setApellido(String apellido) 
     {
         this.apellido = apellido;
-    }
-
-    public String getCorreo() 
-    {
-        return correo;
-    }
-
-    public void setCorreo(String correo) 
-    {
-        this.correo = correo;
-    }
-
-    public String getTelefono() 
-    {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) 
-    {
-        this.telefono = telefono;
-    }
-
-    public String getDomicilio() 
-    {
-        return domicilio;
-    }
-
-    public void setDomicilio(String domicilio) 
-    {
-        this.domicilio = domicilio;
     }
 
     public String getUsuario() 
