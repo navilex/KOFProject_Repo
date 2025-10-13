@@ -5,6 +5,7 @@
 package vistas;
 
 import controladores.GenerarBoletaControlador;
+import controladores.ListaControlador;
 import java.io.FileNotFoundException;
 import javax.swing.JOptionPane;
 
@@ -22,6 +23,8 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
      */
     public FormGenerarBoletas() {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -35,6 +38,7 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
 
         Generar_bt = new javax.swing.JButton();
         Volver_bt = new javax.swing.JButton();
+        Lista_bt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,6 +56,13 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
             }
         });
 
+        Lista_bt.setText("Generar Lista (Beta)");
+        Lista_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Lista_btActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,15 +71,18 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
                 .addGap(127, 127, 127)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Generar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Volver_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Volver_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Lista_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
+                .addGap(71, 71, 71)
                 .addComponent(Generar_bt)
-                .addGap(53, 53, 53)
+                .addGap(18, 18, 18)
+                .addComponent(Lista_bt)
+                .addGap(32, 32, 32)
                 .addComponent(Volver_bt)
                 .addContainerGap(110, Short.MAX_VALUE))
         );
@@ -102,6 +116,11 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_Volver_btActionPerformed
 
+    private void Lista_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Lista_btActionPerformed
+        ListaControlador ObjListaControlador = new ListaControlador();
+        ObjListaControlador.generarReporte();
+    }//GEN-LAST:event_Lista_btActionPerformed
+
     public void setFormMenu(FormMenu FormMenu)
     {
         this.FormMenu = FormMenu;
@@ -134,6 +153,7 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Generar_bt;
+    private javax.swing.JButton Lista_bt;
     private javax.swing.JButton Volver_bt;
     // End of variables declaration//GEN-END:variables
 }

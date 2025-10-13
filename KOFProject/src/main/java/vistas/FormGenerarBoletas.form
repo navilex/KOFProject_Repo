@@ -28,6 +28,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="Generar_bt" max="32767" attributes="0"/>
                   <Component id="Volver_bt" max="32767" attributes="0"/>
+                  <Component id="Lista_bt" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="132" max="32767" attributes="0"/>
           </Group>
@@ -36,9 +37,11 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
               <Component id="Generar_bt" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="Lista_bt" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="Volver_bt" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="110" max="32767" attributes="0"/>
           </Group>
@@ -60,6 +63,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Volver_btActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Lista_bt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Generar Lista (Beta)"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Lista_btActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
