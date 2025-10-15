@@ -36,16 +36,21 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Generar_bt = new javax.swing.JButton();
+        Boleta_bt = new javax.swing.JButton();
         Volver_bt = new javax.swing.JButton();
-        Lista_bt = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        CURP_tb = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        Nombre_tb = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        Apellido_tb = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Generar_bt.setText("Generar Boleta (Beta)");
-        Generar_bt.addActionListener(new java.awt.event.ActionListener() {
+        Boleta_bt.setText("Buscar alumno y generar boleta");
+        Boleta_bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Generar_btActionPerformed(evt);
+                Boleta_btActionPerformed(evt);
             }
         });
 
@@ -56,46 +61,73 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
             }
         });
 
-        Lista_bt.setText("Generar Lista (Beta)");
-        Lista_bt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Lista_btActionPerformed(evt);
-            }
-        });
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setText("CURP");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Nombre");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Apellido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Generar_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Volver_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Lista_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(39, 39, 39)
+                        .addComponent(CURP_tb))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Nombre_tb)
+                            .addComponent(Apellido_tb))))
+                .addGap(41, 41, 41))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Boleta_bt)
+                    .addComponent(Volver_bt, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(Generar_bt)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CURP_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addGap(18, 18, 18)
-                .addComponent(Lista_bt)
-                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Nombre_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(Apellido_tb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(Boleta_bt)
+                .addGap(27, 27, 27)
                 .addComponent(Volver_bt)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Generar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Generar_btActionPerformed
+    private void Boleta_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boleta_btActionPerformed
         GenerarBoletaControlador boleta = new GenerarBoletaControlador();
         
         try {
             // Llamar al método que genera el PDF
-            boleta.GenerarBoleta();
+            boleta.GenerarBoleta(FormLogin.conexionGlobal.IniciarConexion(), CURP_tb, Nombre_tb, Apellido_tb);
             // El JOptionPane de éxito ya está dentro de GenerarBoleta()
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(this, 
@@ -109,17 +141,12 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
-    }//GEN-LAST:event_Generar_btActionPerformed
+    }//GEN-LAST:event_Boleta_btActionPerformed
 
     private void Volver_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Volver_btActionPerformed
         FormMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Volver_btActionPerformed
-
-    private void Lista_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Lista_btActionPerformed
-        ListaControlador ObjListaControlador = new ListaControlador();
-        ObjListaControlador.generarReporte();
-    }//GEN-LAST:event_Lista_btActionPerformed
 
     public void setFormMenu(FormMenu FormMenu)
     {
@@ -152,8 +179,13 @@ public class FormGenerarBoletas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Generar_bt;
-    private javax.swing.JButton Lista_bt;
+    private javax.swing.JTextField Apellido_tb;
+    private javax.swing.JButton Boleta_bt;
+    private javax.swing.JTextField CURP_tb;
+    private javax.swing.JTextField Nombre_tb;
     private javax.swing.JButton Volver_bt;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
