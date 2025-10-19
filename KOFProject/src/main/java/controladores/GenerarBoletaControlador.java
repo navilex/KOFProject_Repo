@@ -110,39 +110,31 @@ public class GenerarBoletaControlador {
     // --- MÉTODOS DE CREACIÓN DE TABLAS (PDF) ---
 
     private Table crearTablaIdentificacion(String nombreAlumno, String grupoAlumno) {
-        // Se definen los anchos para las 3 columnas
-        float[] anchoColumna = {72f, 14f, 14f}; // Ajustados para una mejor distribución
+        float[] anchoColumna = {72f, 14f, 14f}; 
         Table table = new Table(anchoColumna);
         table.useAllAvailableWidth();
 
-        // 1. Crear y añadir la celda para la imagen
         try {
-            String path = "src/main/resources/11.png"; // Usar '/' para mejor compatibilidad entre sistemas operativos
+            String path = "src/main/resources/11.png";
             ImageData imageData = ImageDataFactory.create(path);
             Image image = new Image(imageData);
-            image.setAutoScale(true); // Permite que la imagen se ajuste al tamaño de la celda
+            image.setAutoScale(true);
 
-            // Se crea una celda que abarca 4 filas y 1 columna para la imagen
             Cell imageCell = new Cell(4, 1).add(image);
-            imageCell.setBorder(null); // Se quita el borde de la celda de la imagen para un look más limpio
+            imageCell.setBorder(null);
             table.addCell(imageCell);
 
         } catch (MalformedURLException ex) {
             System.out.println("Error: No se encontró la imagen en la ruta especificada. " + ex.getMessage());
-            // Si la imagen falla, se agrega una celda vacía para mantener la estructura de la tabla
             table.addCell(new Cell(4, 1).setBorder(null));
         }
 
-        // 2. Añadir el resto de los datos en las otras 2 columnas, distribuidos en 4 filas
         table.addCell(crearCelda("NOMBRE DE LA ESCUELA:", TextAlignment.LEFT, VerticalAlignment.MIDDLE, true, null, 10f).setBorder(null));
         table.addCell(crearCelda("PRIMARIA ARCOIRIS", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
-
         table.addCell(crearCelda("CICLO ESCOLAR:", TextAlignment.LEFT, VerticalAlignment.MIDDLE, true, null, 10f).setBorder(null));
-        table.addCell(crearCelda("AGO-DIC 2025", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
-
+        table.addCell(crearCelda("2025-2026", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
         table.addCell(crearCelda("GRADO Y GRUPO:", TextAlignment.LEFT, VerticalAlignment.MIDDLE, true, null, 10f).setBorder(null));
         table.addCell(crearCelda(grupoAlumno, TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
-
         table.addCell(crearCelda("ALUMNO (A):", TextAlignment.LEFT, VerticalAlignment.MIDDLE, true, null, 10f).setBorder(null));
         table.addCell(crearCelda(nombreAlumno, TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
 
@@ -157,13 +149,13 @@ public class GenerarBoletaControlador {
         boolean esSuperior = (idGrupo >= 7);
         String[] materias;
         if (esSuperior) {
-            materias = new String[] { "ESPAÑOL", "INGLES", "ARTES", "MATEMATICAS", "TECNOLOGIA", "CIENCIAS NATURALES", "GEOGRAFIA", "HISTORIA", "FORM. CIVICA Y ETICA", "ED. FISICA" };
+            materias = new String[] { "ESPAÑOL", "INGLÉS", "ARTES", "MATEMÁTICAS", "TECNOLOGÍA", "CIENCIA NATURALES", "GEOGRAFÍA", "HISTORIA", "CÍVICA Y ÉTICA", "ED. FISICA" };
         } else {
-            materias = new String[] { "ESPAÑOL", "INGLES", "ARTES", "MATEMATICAS", "TECNOLOGIA", "CON. DEL MEDIO", "FORM. CIVICA Y ETICA", "ED. FISICA" };
+            materias = new String[] { "ESPAÑOL", "INGLÉS", "ARTES", "MATEMÁTICAS", "TECNOLOGÍA", "CON. DEL MEDIO", "CÍVICA Y ÉTICA", "ED. FISICA" };
         }
-        
+
         String[] mesesColumnasPDF = {"DIAGNOSTICO", "SEPTIEMBRE", "OCTUBRE", "NOV/DIC", "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO"};
-        
+
         float[] anchosContenedor = {75f, 25f};
         Table tablaContenedora = new Table(anchosContenedor);
         tablaContenedora.useAllAvailableWidth();
@@ -172,75 +164,113 @@ public class GenerarBoletaControlador {
         Table tablaPrincipal = new Table(anchosPrincipal);
         tablaPrincipal.useAllAvailableWidth();
         float alturaFila = 20f;
-        
+
         tablaPrincipal.addCell(crearCeldaSpan("CAMPOS DE FORMACIÓN ACADÉMICA", 2, 2, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 9f));
         tablaPrincipal.addCell(crearCeldaSpan("CALIFICACIONES MENSUALES", 1, 10, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 9f));
-        for (String mes : new String[]{"DIAGNO", "SEPTIEMBRE", "OCTUBRE", "NOV/DIC", "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO"}) {
-            tablaPrincipal.addCell(crearCelda(mes, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 8f));
-        }
 
-        tablaPrincipal.addCell(crearCeldaSpan("PENS. Y LENGUAJES", 3, 1, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AZUL_CLARO, 9f));
+        for (String mes : new String[]{"DIAGNO", "SEPTIEMBRE", "OCTUBRE", "NOV/DIC", "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO"}) {
+            Color colorDeCelda;
+            switch (mes) {
+                case "DIAGNO":
+                    colorDeCelda = GRIS_CLARO;
+                    break;
+                case "SEPTIEMBRE":
+                case "OCTUBRE":
+                case "NOV/DIC":
+                    colorDeCelda = NARANJA_CLARO;
+                    break;
+                case "ENERO":
+                case "FEBRERO":
+                case "MARZO":
+                    colorDeCelda = AMARILLO_CLARO;
+                    break;
+                case "ABRIL":
+                case "MAYO":
+                case "JUNIO":
+                    colorDeCelda = VERDE_CLARO;
+                    break;
+                default:
+                    colorDeCelda = null; // Sin color por defecto
+                    break;
+            }
+            tablaPrincipal.addCell(crearCelda(mes, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, colorDeCelda, 8f));
+        }
+        // =================================================================
+
+        // --- LENGUAJES ---
+        tablaPrincipal.addCell(crearCeldaSpan("LENGUAJES", 3, 1, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AZUL_CLARO, 9f));
         for (int i = 0; i < 3; i++) {
             tablaPrincipal.addCell(crearCelda(materias[i], TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AZUL_CLARO, 9f).setHeight(alturaFila));
             for (String mesActual : mesesColumnasPDF) {
                 String[] notasDelMes = todasLasCalificaciones.get(mesActual);
-                tablaPrincipal.addCell(crearCelda(notasDelMes != null ? notasDelMes[i] : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
+                double cal = (notasDelMes != null) ? safeParseDouble(notasDelMes[i]) : 0;
+                tablaPrincipal.addCell(crearCelda(formatearCalificacion(cal), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
             }
         }
-        
-        tablaPrincipal.addCell(crearCeldaSpan("SABERES Y CIENTIFICO", 3, 1, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, ROSA_CLARO, 9f));
+
+        // --- SABERES Y PENS. CIENTÍFICO ---
+        tablaPrincipal.addCell(crearCeldaSpan("SABERES Y PENS. CIENTÍFICO", 3, 1, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, ROSA_CLARO, 9f));
         for (int i = 3; i < 6; i++) {
             tablaPrincipal.addCell(crearCelda(materias[i], TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, ROSA_CLARO, 9f).setHeight(alturaFila));
             for (String mesActual : mesesColumnasPDF) {
                 String[] notasDelMes = todasLasCalificaciones.get(mesActual);
-                tablaPrincipal.addCell(crearCelda(notasDelMes != null ? notasDelMes[i] : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
+                double cal = (notasDelMes != null) ? safeParseDouble(notasDelMes[i]) : 0;
+                tablaPrincipal.addCell(crearCelda(formatearCalificacion(cal), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
             }
         }
-        
-        int rowspanEtica = esSuperior ? 4 : 2;
-        tablaPrincipal.addCell(crearCeldaSpan("DE LA ÉTICA, HUMANO Y COMUNITARIO", rowspanEtica, 1, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AMARILLO_CLARO, 8f));
-        
+
+        // --- ÉTICA, NATURALEZA Y SOC. ---
+        int rowspanEtica = esSuperior ? 3 : 1; 
+        tablaPrincipal.addCell(crearCeldaSpan("ÉTICA, NATURALEZA Y SOC.", rowspanEtica, 1, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AMARILLO_CLARO, 8f));
         if (esSuperior) {
             tablaPrincipal.addCell(crearCelda(materias[6], TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AMARILLO_CLARO, 9f).setHeight(alturaFila));
             for (String mesActual : mesesColumnasPDF) {
                 String[] notasDelMes = todasLasCalificaciones.get(mesActual);
-                tablaPrincipal.addCell(crearCelda(notasDelMes != null ? notasDelMes[6] : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
+                double cal = (notasDelMes != null) ? safeParseDouble(notasDelMes[6]) : 0;
+                tablaPrincipal.addCell(crearCelda(formatearCalificacion(cal), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
             }
             tablaPrincipal.addCell(crearCelda(materias[7], TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AMARILLO_CLARO, 9f).setHeight(alturaFila));
             for (String mesActual : mesesColumnasPDF) {
                 String[] notasDelMes = todasLasCalificaciones.get(mesActual);
-                tablaPrincipal.addCell(crearCelda(notasDelMes != null ? notasDelMes[7] : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
+                double cal = (notasDelMes != null) ? safeParseDouble(notasDelMes[7]) : 0;
+                tablaPrincipal.addCell(crearCelda(formatearCalificacion(cal), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
             }
         }
-        
         int civicaIndex = esSuperior ? 8 : 6;
         tablaPrincipal.addCell(crearCelda(materias[civicaIndex], TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AMARILLO_CLARO, 9f).setHeight(alturaFila));
         for (String mesActual : mesesColumnasPDF) {
             String[] notasDelMes = todasLasCalificaciones.get(mesActual);
-            tablaPrincipal.addCell(crearCelda(notasDelMes != null ? notasDelMes[8] : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
+            double cal = (notasDelMes != null) ? safeParseDouble(notasDelMes[8]) : 0;
+            tablaPrincipal.addCell(crearCelda(formatearCalificacion(cal), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
         }
 
+        // --- HUMANO Y COMUNITARIO ---
+        tablaPrincipal.addCell(crearCeldaSpan("HUMANO Y COMUNITARIO", 1, 1, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, VERDE_CLARO, 9f));
         int edFisicaIndex = esSuperior ? 9 : 7;
         tablaPrincipal.addCell(crearCelda(materias[edFisicaIndex], TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, VERDE_CLARO, 9f).setHeight(alturaFila));
         for (String mesActual : mesesColumnasPDF) {
             String[] notasDelMes = todasLasCalificaciones.get(mesActual);
-            tablaPrincipal.addCell(crearCelda(notasDelMes != null ? notasDelMes[9] : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
+            double cal = (notasDelMes != null) ? safeParseDouble(notasDelMes[9]) : 0;
+            tablaPrincipal.addCell(crearCelda(formatearCalificacion(cal), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
         }
-        
+
+        // --- PROMEDIO MENSUAL ---
         tablaPrincipal.addCell(crearCeldaSpan("PROM. MENSUAL", 1, 2, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 9f).setHeight(alturaFila));
         for (String mesActual : mesesColumnasPDF) {
             String[] notasDelMes = todasLasCalificaciones.get(mesActual);
-            tablaPrincipal.addCell(crearCelda(notasDelMes != null ? notasDelMes[11] : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 8f).setHeight(alturaFila));
+            double cal = (notasDelMes != null) ? safeParseDouble(notasDelMes[11]) : 0;
+            tablaPrincipal.addCell(crearCelda(formatearCalificacion(cal), TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 8f).setHeight(alturaFila));
         }
-        
+
+        // --- TABLA DE PERIODOS (DERECHA) ---
         float[] anchosPeriodos = {25f, 25f, 25f, 25f};
         Table tablaPeriodos = new Table(anchosPeriodos);
         tablaPeriodos.useAllAvailableWidth();
         tablaPeriodos.addCell(crearCeldaSpan("PERIODOS", 1, 4, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 9f));
-        tablaPeriodos.addCell(crearCelda("1er/TRIM", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 7f));
-        tablaPeriodos.addCell(crearCelda("2º/TRIM", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 7f));
-        tablaPeriodos.addCell(crearCelda("3er/TRIM", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 7f));
-        tablaPeriodos.addCell(crearCelda("FINAL", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 7f));
+        tablaPeriodos.addCell(crearCelda("1er/TRIM", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, NARANJA_CLARO, 7f));
+        tablaPeriodos.addCell(crearCelda("2º/TRIM", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AMARILLO_CLARO, 7f));
+        tablaPeriodos.addCell(crearCelda("3er/TRIM", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, VERDE_CLARO, 7f));
+        tablaPeriodos.addCell(crearCelda("FINAL", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AZUL_CLARO, 7f));
 
         List<Integer> indicesParaPromediar = new ArrayList<>();
         if (esSuperior) {
@@ -256,7 +286,7 @@ public class GenerarBoletaControlador {
             double prom1 = calcularPromedioTrimestral(trimestre1Meses, todasLasCalificaciones, dataIndex);
             double prom2 = calcularPromedioTrimestral(trimestre2Meses, todasLasCalificaciones, dataIndex);
             double prom3 = calcularPromedioTrimestral(trimestre3Meses, todasLasCalificaciones, dataIndex);
-            
+
             double promFinal = 0;
             int trimestresConNota = 0;
             if (prom1 > 0) { promFinal += prom1; trimestresConNota++; }
@@ -264,12 +294,12 @@ public class GenerarBoletaControlador {
             if (prom3 > 0) { promFinal += prom3; trimestresConNota++; }
             if (trimestresConNota > 0) promFinal /= trimestresConNota;
 
-            tablaPeriodos.addCell(crearCelda(prom1 > 0 ? String.format("%.1f", prom1) : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
-            tablaPeriodos.addCell(crearCelda(prom2 > 0 ? String.format("%.1f", prom2) : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
-            tablaPeriodos.addCell(crearCelda(prom3 > 0 ? String.format("%.1f", prom3) : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
-            tablaPeriodos.addCell(crearCelda(promFinal > 0 ? String.format("%.1f", promFinal) : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 8f).setHeight(alturaFila));
+            tablaPeriodos.addCell(crearCelda(formatearCalificacion(prom1), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
+            tablaPeriodos.addCell(crearCelda(formatearCalificacion(prom2), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
+            tablaPeriodos.addCell(crearCelda(formatearCalificacion(prom3), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 8f).setHeight(alturaFila));
+            tablaPeriodos.addCell(crearCelda(formatearCalificacion(promFinal), TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 8f).setHeight(alturaFila));
         }
-        
+
         tablaContenedora.addCell(new Cell().add(tablaPrincipal).setBorder(null).setPadding(1f));
         tablaContenedora.addCell(new Cell().add(tablaPeriodos).setBorder(null).setPadding(1f));
 
@@ -284,18 +314,38 @@ public class GenerarBoletaControlador {
         float[] anchoColumna = {20f, 6.5f, 6.5f, 6.5f, 6.5f, 6.5f, 6.5f, 6.5f, 6.5f, 6.5f, 6.5f};
         Table tablaInasistencias = new Table(anchoColumna);
         tablaInasistencias.useAllAvailableWidth();
-        
+
+        // Celda inicial vacía
         tablaInasistencias.addCell(crearCeldaSpan("", 1, 1, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 9f));
-        for (String mes : new String[]{"D", "S", "O", "N/D", "E", "F", "M", "A", "M", "J"}) {
-             tablaInasistencias.addCell(crearCelda(mes, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, GRIS_CLARO, mes.equals("N\nD") ? 7f: 9f));
+
+        // Mes de Diagnóstico
+        tablaInasistencias.addCell(crearCelda("D", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, GRIS_CLARO, 9f));
+
+        // Meses del Trimestre 1 (Naranja)
+        for (String mes : new String[]{"S", "O", "N/D"}) {
+            float fontSize = mes.equals("N/D") ? 7f : 9f;
+            tablaInasistencias.addCell(crearCelda(mes, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, NARANJA_CLARO, fontSize));
         }
-        
+
+        // Meses del Trimestre 2 (Amarillo)
+        for (String mes : new String[]{"E", "F", "M"}) {
+            tablaInasistencias.addCell(crearCelda(mes, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AMARILLO_CLARO, 9f));
+        }
+
+        // Meses del Trimestre 3 (Verde)
+        for (String mes : new String[]{"A", "M", "J"}) {
+            tablaInasistencias.addCell(crearCelda(mes, TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, VERDE_CLARO, 9f));
+        }
+        // =================================================================
+
+        // Fila de Inasistencias
         tablaInasistencias.addCell(crearCelda("INASISTENCIAS", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, null, 9f));
         float alturaFilaInasistencias = 20f;
         for (int i = 0; i < 10; i++) {
             tablaInasistencias.addCell(crearCelda("0", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 9f).setHeight(alturaFilaInasistencias));
         }
-        
+
+        // Tabla de Calificaciones (derecha)
         float[] anchosCalificaciones = {25f, 25f, 25f, 25f};
         Table tablaCalificaciones = new Table(anchosCalificaciones);
         tablaCalificaciones.useAllAvailableWidth();
@@ -304,12 +354,12 @@ public class GenerarBoletaControlador {
         tablaCalificaciones.addCell(crearCelda("CALIF.", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AMARILLO_CLARO, 9f));
         tablaCalificaciones.addCell(crearCelda("CALIF.", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, VERDE_AGUA_CLARO, 9f));
         tablaCalificaciones.addCell(crearCelda("PF", TextAlignment.CENTER, VerticalAlignment.MIDDLE, true, AZUL_PALIDO, 9f));
-        
+
         int dataIndexPromedio = 11;
         double prom1 = calcularPromedioTrimestral(trimestre1Meses, todasLasCalificaciones, dataIndexPromedio);
         double prom2 = calcularPromedioTrimestral(trimestre2Meses, todasLasCalificaciones, dataIndexPromedio);
         double prom3 = calcularPromedioTrimestral(trimestre3Meses, todasLasCalificaciones, dataIndexPromedio);
-        
+
         double promFinal = 0;
         int trimestresConNota = 0;
         if (prom1 > 0) { promFinal += prom1; trimestresConNota++; }
@@ -317,11 +367,12 @@ public class GenerarBoletaControlador {
         if (prom3 > 0) { promFinal += prom3; trimestresConNota++; }
         if (trimestresConNota > 0) promFinal /= trimestresConNota;
 
-        tablaCalificaciones.addCell(crearCelda(prom1 > 0 ? String.format("%.1f", prom1) : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 9f).setHeight(alturaFilaInasistencias));
-        tablaCalificaciones.addCell(crearCelda(prom2 > 0 ? String.format("%.1f", prom2) : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 9f).setHeight(alturaFilaInasistencias));
-        tablaCalificaciones.addCell(crearCelda(prom3 > 0 ? String.format("%.1f", prom3) : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 9f).setHeight(alturaFilaInasistencias));
-        tablaCalificaciones.addCell(crearCelda(promFinal > 0 ? String.format("%.1f", promFinal) : "", TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 9f).setHeight(alturaFilaInasistencias));
-        
+        tablaCalificaciones.addCell(crearCelda(formatearCalificacion(prom1), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 9f).setHeight(alturaFilaInasistencias));
+        tablaCalificaciones.addCell(crearCelda(formatearCalificacion(prom2), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 9f).setHeight(alturaFilaInasistencias));
+        tablaCalificaciones.addCell(crearCelda(formatearCalificacion(prom3), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 9f).setHeight(alturaFilaInasistencias));
+        tablaCalificaciones.addCell(crearCelda(formatearCalificacion(promFinal), TextAlignment.CENTER, VerticalAlignment.MIDDLE, false, null, 9f).setHeight(alturaFilaInasistencias));
+
+        // Ensamblaje final
         tablaContenedora.addCell(new Cell().add(tablaInasistencias).setBorder(null).setPadding(1f));
         tablaContenedora.addCell(new Cell().add(tablaCalificaciones).setBorder(null).setPadding(1f));
 
@@ -383,13 +434,41 @@ public class GenerarBoletaControlador {
         return tablaPrincipal;
     }
     
-    // --- MÉTODOS DE EXTRACCIÓN DE DATOS (BD) ---
+    // --- MÉTODOS DE EXTRACCIÓN Y FORMATO DE DATOS ---
     
+    /**
+     * Convierte de forma segura un String a double. Devuelve 0.0 si el String es nulo,
+     * vacío o no es un número válido.
+     */
+    private double safeParseDouble(String numero) {
+        if (numero == null || numero.trim().isEmpty()) {
+            return 0.0;
+        }
+        try {
+            return Double.parseDouble(numero);
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
+    }
+
+    /**
+     * Formatea una calificación numérica: 10 como entero, el resto con un decimal y punto.
+     */
+    private String formatearCalificacion(double calificacion) {
+        if (calificacion <= 0) {
+            return "";
+        }
+        if (calificacion == 10.0) {
+            return "10";
+        }
+        return String.format(java.util.Locale.US, "%.1f", calificacion);
+    }
+
     private String[] ObtenerDatosIdentificacion(Connection conexionExistente, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido) {
         int idAlumno = EncontrarAlumno(conexionExistente, paramCURP, paramNombre, paramApellido);
         if (idAlumno == 0) return null;
         String SQL = "SELECT a.nombre, a.apellido, g.grupo, a.id_grupo, a.id_alumno " +
-                       "FROM alumnos a JOIN grupos g ON a.id_grupo = g.id_grupo WHERE a.id_alumno = ?;";
+                     "FROM alumnos a JOIN grupos g ON a.id_grupo = g.id_grupo WHERE a.id_alumno = ?;";
         try (PreparedStatement ps = conexionExistente.prepareStatement(SQL)) {
             ps.setInt(1, idAlumno);
             try (ResultSet rs = ps.executeQuery()) {
@@ -428,7 +507,7 @@ public class GenerarBoletaControlador {
             JOptionPane.showMessageDialog(null, "Error al buscar alumno: " + ex.toString());
         }
         
-        return 0; // No se encontró el alumno
+        return 0;
     }
     
     public Map<String, String[]> ExtraerCalificacion(Connection conexionExistente, int idAlumno, int idGrupo) {
@@ -506,11 +585,11 @@ public class GenerarBoletaControlador {
             if (calificaciones != null && calificaciones.containsKey(mes)) {
                 String[] notasDelMes = calificaciones.get(mes);
                 if (notasDelMes != null && dataIndex < notasDelMes.length && notasDelMes[dataIndex] != null) {
-                    try {
-                        suma += Double.parseDouble(notasDelMes[dataIndex]);
+                    double nota = safeParseDouble(notasDelMes[dataIndex]);
+                    // Solo se promedian calificaciones válidas (mayores a 0)
+                    if (nota > 0) {
+                        suma += nota;
                         contador++;
-                    } catch (NumberFormatException e) {
-                        // Ignora
                     }
                 }
             }
