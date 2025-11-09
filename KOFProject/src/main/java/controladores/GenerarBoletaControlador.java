@@ -134,7 +134,58 @@ public class GenerarBoletaControlador {
         table.addCell(crearCelda("CICLO ESCOLAR:", TextAlignment.LEFT, VerticalAlignment.MIDDLE, true, null, 10f).setBorder(null));
         table.addCell(crearCelda("2025-2026", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
         table.addCell(crearCelda("GRADO Y GRUPO:", TextAlignment.LEFT, VerticalAlignment.MIDDLE, true, null, 10f).setBorder(null));
-        table.addCell(crearCelda(grupoAlumno, TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        
+        //table.addCell(crearCelda(grupoAlumno, TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        
+        if(grupoAlumno.equals("1A"))
+        {
+            table.addCell(crearCelda("Primero A", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("1B"))
+        {
+            table.addCell(crearCelda("Primero B", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("2A"))
+        {
+            table.addCell(crearCelda("Segundo A", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("2B"))
+        {
+            table.addCell(crearCelda("Segundo B", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("3A"))
+        {
+            table.addCell(crearCelda("Tercero A", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("3B"))
+        {
+            table.addCell(crearCelda("Tercero B", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("4A"))
+        {
+            table.addCell(crearCelda("Cuarto A", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("4B"))
+        {
+            table.addCell(crearCelda("Cuarto B", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("5A"))
+        {
+            table.addCell(crearCelda("Quinto A", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("5B"))
+        {
+            table.addCell(crearCelda("Quinto B", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("6A"))
+        {
+            table.addCell(crearCelda("Sexto A", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        else if (grupoAlumno.equals("6B"))
+        {
+            table.addCell(crearCelda("Sexto B", TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
+        }
+        
         table.addCell(crearCelda("ALUMNO (A):", TextAlignment.LEFT, VerticalAlignment.MIDDLE, true, null, 10f).setBorder(null));
         table.addCell(crearCelda(nombreAlumno, TextAlignment.LEFT, VerticalAlignment.MIDDLE, false, null, 10f).setBorder(null));
 

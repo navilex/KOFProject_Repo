@@ -44,6 +44,8 @@ public class FormMenu extends javax.swing.JFrame {
         Boleta_bt = new javax.swing.JButton();
         Alumnos_bt = new javax.swing.JButton();
         Lista_bt = new javax.swing.JButton();
+        Estadisticas_bt = new javax.swing.JButton();
+        EnviarBoletas_bt = new javax.swing.JButton();
         Secretarios_bt = new javax.swing.JButton();
         Volver_bt = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -69,7 +71,7 @@ public class FormMenu extends javax.swing.JFrame {
                 Boleta_btActionPerformed(evt);
             }
         });
-        getContentPane().add(Boleta_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 210, 30));
+        getContentPane().add(Boleta_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 210, 30));
 
         Alumnos_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
         Alumnos_bt.setText("Altas alumnos");
@@ -78,7 +80,7 @@ public class FormMenu extends javax.swing.JFrame {
                 Alumnos_btActionPerformed(evt);
             }
         });
-        getContentPane().add(Alumnos_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 210, 30));
+        getContentPane().add(Alumnos_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 210, 30));
 
         Lista_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
         Lista_bt.setText("Generar listas");
@@ -87,7 +89,25 @@ public class FormMenu extends javax.swing.JFrame {
                 Lista_btActionPerformed(evt);
             }
         });
-        getContentPane().add(Lista_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 210, 30));
+        getContentPane().add(Lista_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 210, 30));
+
+        Estadisticas_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
+        Estadisticas_bt.setText("Generar estadísticas");
+        Estadisticas_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Estadisticas_btActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Estadisticas_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 210, 30));
+
+        EnviarBoletas_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
+        EnviarBoletas_bt.setText("Enviar boletas");
+        EnviarBoletas_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnviarBoletas_btActionPerformed(evt);
+            }
+        });
+        getContentPane().add(EnviarBoletas_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 210, 30));
 
         Secretarios_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
         Secretarios_bt.setText("Altas secretarios");
@@ -96,7 +116,7 @@ public class FormMenu extends javax.swing.JFrame {
                 Secretarios_btActionPerformed(evt);
             }
         });
-        getContentPane().add(Secretarios_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 210, 30));
+        getContentPane().add(Secretarios_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 210, 30));
 
         Volver_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
         Volver_bt.setText("Cerrar sesión");
@@ -105,7 +125,7 @@ public class FormMenu extends javax.swing.JFrame {
                 Volver_btActionPerformed(evt);
             }
         });
-        getContentPane().add(Volver_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 210, 30));
+        getContentPane().add(Volver_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 210, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/destiny.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 506));
@@ -161,6 +181,20 @@ public class FormMenu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_Lista_btActionPerformed
 
+    private void Estadisticas_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Estadisticas_btActionPerformed
+        FormGenerarEstadisticas ObjFormGenerarEstadisticas = new FormGenerarEstadisticas();
+        ObjFormGenerarEstadisticas.setFormMenu(this);
+        ObjFormGenerarEstadisticas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_Estadisticas_btActionPerformed
+
+    private void EnviarBoletas_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarBoletas_btActionPerformed
+        FormEnviarBoletas ObjFormEnviarBoletas = new FormEnviarBoletas();
+        ObjFormEnviarBoletas.setFormMenu(this);
+        ObjFormEnviarBoletas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_EnviarBoletas_btActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,6 +223,8 @@ public class FormMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Alumnos_bt;
     private javax.swing.JButton Boleta_bt;
+    private javax.swing.JButton EnviarBoletas_bt;
+    private javax.swing.JButton Estadisticas_bt;
     private javax.swing.JButton Lista_bt;
     private javax.swing.JButton Secretarios_bt;
     private javax.swing.JButton Volver_bt;

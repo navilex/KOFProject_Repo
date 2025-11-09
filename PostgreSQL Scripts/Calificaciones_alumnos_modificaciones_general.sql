@@ -1,3 +1,4 @@
+select * from paquetematerias;
 select * from calificaciones_inferior;
 select * from calificaciones_superior;
 select * from alumnos;
