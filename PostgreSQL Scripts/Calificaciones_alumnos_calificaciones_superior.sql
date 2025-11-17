@@ -36,3 +36,9 @@ VALUES
 ('Abril', 9.0, 9.5, 9.0, 9.0, 9.5, 9.0, 9.0, 9.5, 9.5, 10.0, 0, 9.2, 25),
 ('Mayo', 8.0, 8.5, 8.5, 7.5, 8.0, 8.5, 8.0, 8.5, 8.0, 10.0, 1, 8.3, 25),
 ('Junio', 9.5, 9.0, 9.5, 9.5, 9.0, 9.5, 9.5, 9.0, 9.5, 10.0, 0, 9.3, 25);
+
+select * from calificaciones_superior;
+
+select * from alumnos;
+
+select * from grupos;

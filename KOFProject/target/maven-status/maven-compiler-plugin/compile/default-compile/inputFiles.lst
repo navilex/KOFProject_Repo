@@ -7,6 +7,7 @@ D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\EnviarCorr
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\EstadisticasControlador.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\GenerarBoletaControlador.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\ListaControlador.java
+D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\RespaldoControlador.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\controladores\SecretarioControlador.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\modelos\Alumno.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\modelos\Secretario.java
@@ -19,5 +20,6 @@ D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormGenerarEstadi
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormGenerarListas.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormLogin.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormMenu.java
+D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormRespaldo.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FormSecretarios.java
 D:\Documentos\NetBeansProjects\KOFProject\src\main\java\vistas\FromMenuSecre.java

@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -45,10 +46,11 @@ public class AlumnoControlador
         MiModeloTabla.addColumn("Correo Padre");
         MiModeloTabla.addColumn("Telefono Padre");
         MiModeloTabla.addColumn("Grupo");
+        MiModeloTabla.addColumn("Fecha");
         
         Alumnos_tabla.setModel(MiModeloTabla);
         
-        String[] datos = new String[11];
+        String[] datos = new String[12];
         Statement st;
         
         try
@@ -69,6 +71,7 @@ public class AlumnoControlador
                 datos[8]=rs.getString(9);
                 datos[9]=rs.getString(10);
                 datos[10]=rs.getString(11);
+                datos[11]=rs.getString(12);
                 
                 datos[10]=this.CambiarIDPorGrupo(conexionExistente, datos[10]);
                 
@@ -155,7 +158,7 @@ public class AlumnoControlador
         }
     }
     
-    public void SeleccionarAlumno(JTextField paramID, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo, JTable paramTabla)
+    public void SeleccionarAlumno(JTextField paramID, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo, JTextField paramFecha, JTable paramTabla)
     {
         try
         {
@@ -174,6 +177,7 @@ public class AlumnoControlador
                 paramCorreoP.setText(paramTabla.getValueAt(fila, 8).toString());
                 paramTelefonoP.setText(paramTabla.getValueAt(fila, 9).toString());
                 paramGrupo.setText(paramTabla.getValueAt(fila, 10).toString());
+                paramFecha.setText(paramTabla.getValueAt(fila, 11).toString());
             }
             else
             {
@@ -188,6 +192,7 @@ public class AlumnoControlador
     
     public boolean ValidarDatos(Connection conexionExistente, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, int idGrupo)
     {
+        /*
         //CURP------------------------------------------------------------------------------
         if(!(paramCURP.getText() != null && paramCURP.getText().matches("^[A-Z]{4}\\d{6}[HM][A-Z]{5}[0-9]{2}$")))
         {
@@ -199,6 +204,7 @@ public class AlumnoControlador
                     + "5. Los dos últimos caracteres son una homoclave (dos dígitos).");
             return false;
         }
+        */
         
         //Nombres----------------------------------------------------------------------------
         if(!(paramNombre.getText() != null && paramNombre.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")))
@@ -370,6 +376,7 @@ public class AlumnoControlador
         MiModeloTabla.addColumn("Correo Padre");
         MiModeloTabla.addColumn("Telefono Padre");
         MiModeloTabla.addColumn("Grupo");
+        MiModeloTabla.addColumn("Fecha");
         
         Alumnos_tabla.setModel(MiModeloTabla);
 
@@ -386,7 +393,7 @@ public class AlumnoControlador
                 
                 try (ResultSet rs = ps.executeQuery()) 
                 {
-                    String[] datos = new String[11];
+                    String[] datos = new String[12];
                     while (rs.next()) {
                         // Obtiene los datos de cada columna por su nombre, es una práctica más segura
                         // y legible que usar índices numéricos.
@@ -401,6 +408,7 @@ public class AlumnoControlador
                         datos[8] = rs.getString("correo_padre");
                         datos[9] = rs.getString("telefono_padre");
                         datos[10] = rs.getString("id_grupo");
+                        datos[11] = rs.getString("fecha_nacimiento");
 
                         datos[10] = this.CambiarIDPorGrupo(conexionExistente, datos[10]);
                         
@@ -419,7 +427,7 @@ public class AlumnoControlador
         }
     }
     
-    public void InsertarAlumno(Connection conexionExistente, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo)
+    public void InsertarAlumno(Connection conexionExistente, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo, JTextField paramFecha)
     {
         int idGrupo = this.CambiarGrupoPorID(conexionExistente, paramGrupo.getText());
         
@@ -436,10 +444,11 @@ public class AlumnoControlador
             ObjAlumno.setCorreo_padre(paramCorreoP.getText());
             ObjAlumno.setTelefono_padre(paramTelefonoP.getText());
             ObjAlumno.setGrupo(this.CambiarGrupoPorID(conexionExistente, paramGrupo.getText()));
+            ObjAlumno.setFecha(Date.valueOf(paramFecha.getText()));
 
             //Conexion ObjConexion = new Conexion();
 
-            String Consulta = "INSERT INTO alumnos (curp, nombre, apellido, edad, genero, nombre_padre, apellido_padre, correo_padre, telefono_padre, id_grupo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String Consulta = "INSERT INTO alumnos (curp, nombre, apellido, edad, genero, nombre_padre, apellido_padre, correo_padre, telefono_padre, id_grupo, fecha_nacimiento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             try
             {
@@ -455,19 +464,20 @@ public class AlumnoControlador
                 cs.setString(8, ObjAlumno.getCorreo_padre());
                 cs.setString(9, ObjAlumno.getTelefono_padre());
                 cs.setInt(10, ObjAlumno.getGrupo());
-
+                cs.setDate(11, ObjAlumno.getFecha());
+                
                 cs.execute();
 
                 JOptionPane.showMessageDialog(null, "Se insertó correctamente");
             }
             catch (HeadlessException | SQLException ex)
             {
-                JOptionPane.showMessageDialog(null, "Ha ocurrido un error, revisa los datos" );
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error, revisa los datos" + ex );
             }
         }
     }
     
-    public void ModificarAlumno(Connection conexionExistente, JTextField paramID, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo)
+    public void ModificarAlumno(Connection conexionExistente, JTextField paramID, JTextField paramCURP, JTextField paramNombre, JTextField paramApellido, JTextField paramEdad, JTextField paramGenero, JTextField paramNombreP, JTextField paramApellidoP, JTextField paramCorreoP, JTextField paramTelefonoP, JTextField paramGrupo, JTextField paramFecha)
     {
         //int idGrupo = Integer.parseInt(paramGrupo.getText());
         
@@ -485,10 +495,11 @@ public class AlumnoControlador
             ObjAlumno.setCorreo_padre(paramCorreoP.getText());
             ObjAlumno.setTelefono_padre(paramTelefonoP.getText());
             ObjAlumno.setGrupo(this.CambiarGrupoPorID(conexionExistente, paramGrupo.getText()));
+            ObjAlumno.setFecha(Date.valueOf(paramFecha.getText()));
 
             //Conexion ObjConexion = new Conexion();
 
-            String Consulta = "UPDATE alumnos SET curp =?, nombre =?, apellido =?, edad =?, genero =?, nombre_padre =?, apellido_padre =?, correo_padre =?, telefono_padre =?, id_grupo =?  WHERE id_alumno =?;";
+            String Consulta = "UPDATE alumnos SET curp =?, nombre =?, apellido =?, edad =?, genero =?, nombre_padre =?, apellido_padre =?, correo_padre =?, telefono_padre =?, id_grupo =? , fecha_nacimiento =? WHERE id_alumno =?;";
 
             try
             {
@@ -504,7 +515,9 @@ public class AlumnoControlador
                 cs.setString(8, ObjAlumno.getCorreo_padre());
                 cs.setString(9, ObjAlumno.getTelefono_padre());
                 cs.setInt(10, ObjAlumno.getGrupo());
-                cs.setInt(11, ObjAlumno.getId());
+                cs.setDate(11, ObjAlumno.getFecha());
+                cs.setInt(12, ObjAlumno.getId());
+
 
                 cs.execute();
 
@@ -512,7 +525,7 @@ public class AlumnoControlador
             }
             catch(SQLException ex)
             {
-                JOptionPane.showMessageDialog(null, "Error al modificar, revisa los datos");
+                JOptionPane.showMessageDialog(null, "Error al modificar, revisa los datos" + ex);
             }
         }
     }

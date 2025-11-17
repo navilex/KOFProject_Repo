@@ -47,6 +47,7 @@ public class FormMenu extends javax.swing.JFrame {
         Estadisticas_bt = new javax.swing.JButton();
         EnviarBoletas_bt = new javax.swing.JButton();
         Secretarios_bt = new javax.swing.JButton();
+        Respaldo_bt = new javax.swing.JButton();
         Volver_bt = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -117,6 +118,15 @@ public class FormMenu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Secretarios_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 210, 30));
+
+        Respaldo_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
+        Respaldo_bt.setText("Respaldo de datos");
+        Respaldo_bt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Respaldo_btActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Respaldo_bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 210, 30));
 
         Volver_bt.setFont(new java.awt.Font("Source Code Pro", 0, 14)); // NOI18N
         Volver_bt.setText("Cerrar sesión");
@@ -195,6 +205,13 @@ public class FormMenu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_EnviarBoletas_btActionPerformed
 
+    private void Respaldo_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Respaldo_btActionPerformed
+        FormRespaldo ObjFormRespaldo = new FormRespaldo();
+        ObjFormRespaldo.setFormMenu(this);
+        ObjFormRespaldo.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_Respaldo_btActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,6 +243,7 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JButton EnviarBoletas_bt;
     private javax.swing.JButton Estadisticas_bt;
     private javax.swing.JButton Lista_bt;
+    private javax.swing.JButton Respaldo_bt;
     private javax.swing.JButton Secretarios_bt;
     private javax.swing.JButton Volver_bt;
     private javax.swing.JLabel jLabel1;

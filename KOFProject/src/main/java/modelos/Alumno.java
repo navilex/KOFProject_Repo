@@ -4,6 +4,8 @@
  */
 package modelos;
 
+import java.sql.Date;
+
 /**
  *
  * @author Ivan De la Rosa
@@ -21,6 +23,7 @@ public class Alumno
     String correo_padre;
     String telefono_padre;
     int grupo;
+    Date fecha;
 
     public int getId() 
     {
@@ -129,4 +132,15 @@ public class Alumno
     {
         this.grupo = grupo;
     }
+    
+    public Date getFecha() 
+    {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) 
+    {
+        this.fecha = fecha;
+    }
+
 }
